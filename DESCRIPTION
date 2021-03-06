@@ -1,0 +1,16 @@
+Package: staticutils
+Title: Statically Import Utility Functions
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Winston",
+           family = "Chang",
+           role = c("aut", "cre"),
+           email = "winston@stdout.org")
+Description: Provides utility functions that can be copied into another package.
+     Other packages do not need to take a dependency on staticutils; the
+     functions can be copied to the R/ directory of the package.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
