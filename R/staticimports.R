@@ -45,6 +45,7 @@ find_symbols_impl <- function(x, sym_table = new.env()) {
     find_symbols_impl(formals(x), sym_table)
 
   } else if (is.pairlist(x)) {
+    # Function parameters are pairlists
     map_null(x, find_symbols_impl, sym_table)
 
   } else if (is.atomic(x)) {
@@ -70,16 +71,19 @@ find_symbols_impl <- function(x, sym_table = new.env()) {
 #'   string represents a symbol of an object in the environment.
 #'
 #' @param env An environment; typically, a namespace for a package.
+#' TODO: Add string support for naming package
 #'
 #' @examples
-#' # By default, find symbols internal to the staticutils package
+#' # By default, find symbols internal to the staticimports package
 #' find_internal_symbols()
 #'
 #' # Find all symbols internal to the utils package
 #' find_internal_symbols(getNamespace("utils"))
 #'
 #' @export
-find_internal_symbols <- function(env = getNamespace("staticutils")) {
+find_internal_symbols <- function(env = getNamespace("staticimports")) {
+  if (is_string(env)) env <- getNamespace(env)
+
   # Find the symbols used by each object in the environment.
   obj_symbols <- lapply(env, find_symbols)
   # Get names of all the objects in this environment
@@ -97,7 +101,9 @@ find_internal_symbols <- function(env = getNamespace("staticutils")) {
 #'
 #' @inheritParams find_internal_symbols
 #' @export
-find_internal_symbols_recursive <- function(env = getNamespace("staticutils")) {
+find_internal_symbols_recursive <- function(env = getNamespace("staticimports")) {
+  if (is_string(env)) env <- getNamespace(env)
+
   obj_symbols <- find_internal_symbols(env)
 
   res <- lapply(names(obj_symbols), find_internal_deps_one, obj_symbols)
@@ -115,7 +121,7 @@ find_internal_deps_one_impl <- function(x, sym_table, table = new.env()) {
   children_names <- sym_table[[x]]
 
   for (child_name in children_names) {
-    if (!exists(child_name, envir = table)) {
+    if (!exists(child_name, envir = table, inherits = FALSE)) {
       table[[child_name]] <- TRUE
       find_internal_deps_one_impl(child_name, sym_table, table)
     }

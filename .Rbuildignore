@@ -1,5 +1,6 @@
-^staticutils\.Rproj$
+^staticimports\.Rproj$
 ^\.Rproj\.user$
 ^LICENSE\.md$
 ^README\.Rmd$
 ^Makefile$
+^.*\.sublime-project$
