@@ -22,9 +22,3 @@ escape_dbl_quotes <- function(x) {
 `%||%` <- function(a, b) {
   if (is.null(a)) b else a
 }
-
-
-
-cat0 <- function(..., sep = "") {
-  cat(..., sep = sep)
-}
