@@ -56,9 +56,9 @@ library(staticimports)
 import(c("os_name", "walk"))
 ```
 
-You examine the output by writing to `stdout()`. Notice how importing
-`os_name` automatically brings in `is_windows`, `is_mac`, and
-`is_linux`.
+You examine the output by writing to `stdout()` instead of
+`R/staticimports.R`. Notice how importing `os_name` automatically brings
+in `is_windows`, `is_mac`, and `is_linux`.
 
 ``` r
 import(c("os_name", "walk"), stdout())
