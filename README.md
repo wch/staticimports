@@ -92,6 +92,8 @@ import(c("os_name", "walk"), stdout())
 #> }
 ```
 
+TODO: Add a way to declare imports for a project.
+
 ## Some conventions
 
 Note: This is currently just a dumping ground for ideas.
