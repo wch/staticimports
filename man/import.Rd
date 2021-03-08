@@ -18,8 +18,10 @@ current project. Use \code{stdout()} to output to console.}
 Statically import one or more functions
 }
 \examples{
+if (interactive()) {
 # Import `os_name` and `walk` into your project
 import(c("os_name", "walk"))
+}
 
 # Write to stdout instead of R/staticimports.R
 import(c("os_name", "walk"), stdout())
