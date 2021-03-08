@@ -106,10 +106,10 @@ find_symbols_impl <- function(x, sym_table = new.env()) {
     # Ignore atomic types; they can't contain symbols.
 
   } else {
-    message(
-      "Note: don't know how to handle object with class ",
-      paste(class(x), collapse = ", ")
-    )
+    # message(
+    #   "Note: don't know how to handle object with class ",
+    #   paste(class(x), collapse = ", ")
+    # )
   }
 
   # Note that this return value is only actually used by the `find_symbols()`,
