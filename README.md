@@ -124,7 +124,21 @@ import("mergeVectors", stdout(), env = "shiny")
 #> }
 ```
 
-TODO: Add a way to declare imports for a project.
+Note that if the package is not written with staticimports in mind, then
+the statically-imported functions may not work correctly. For example,
+if a function uses a function that is dynamically imported from another
+package, then it won’t work when you statically import it (unless your
+package also dynamically imports that package).
+
+Also, note that if you statically import functions from another package,
+there likely will be issues with licensing that you will need to
+resolve.
+
+## TODO
+
+-   Add a way to declare imports for a project.
+-   Figure out and explain licensing issues.
+-   Write license info in generated file.
 
 ## Some conventions
 
