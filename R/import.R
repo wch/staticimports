@@ -17,7 +17,7 @@ import <- function(names, outfile = here::here("R/staticimports.R"), env = "stat
 
   dep_table <- find_internal_deps(env)
   all_dep_names <- c(names, unlist(dep_table[names], recursive = FALSE, use.names = FALSE))
-  all_dep_names <- unique(all_dep_names)
+  all_dep_names <- sort(unique(all_dep_names))
 
   all_dep_objs <- mget(all_dep_names, env)
 
