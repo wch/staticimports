@@ -61,24 +61,38 @@ find_symbols_impl <- function(x, sym_table = new.env()) {
   sym_table
 }
 
-#' Given an environment, find all internal symbols used by each object
+#' Given a package namespace or an environment, find all internal symbols used
+#' by each function
+#'
+#' @description
+#'
+#' `find_internal_symbols()` finds all the objects in the given package
+#' namespace (or environment), then, for each function in the environment, it
+#' finds all symbols in the function (by calling [find_symbols()], and then it
+#' filters the symbols so that only symbols referring to objects in the
+#' environment/namespace remain.
+#'
+#' `find_internal_deps()` does the same, and then for each function, it
+#' considers each (internal) symbol as a dependency and recursively finds all
+#' dependencies. So for a given function in the environment,
+#' `find_internal_deps()` finds the internal dependencies needed for that
+#' function.
 #'
 #' @return A named list, where the name of each element is the name of each
 #'   object in `env`, and the value is a character vector of strings, where each
-#'   string represents a symbol of an object in the environment.
+#'   string is the name of an object in the environment.
 #'
-#' @param env An environment; typically, a namespace for a package.
-#' TODO: Add string support for naming package
+#' @param env A string naming a package, or an environment.
 #'
 #' @examples
 #' # By default, find symbols internal to the staticimports package
 #' find_internal_symbols()
 #'
 #' # Find all symbols internal to the utils package
-#' find_internal_symbols(getNamespace("utils"))
+#' find_internal_symbols("utils")
 #'
 #' @export
-find_internal_symbols <- function(env = getNamespace("staticimports")) {
+find_internal_symbols <- function(env = "staticimports") {
   if (is_string(env)) env <- getNamespace(env)
 
   # Find the symbols used by each object in the environment.
@@ -93,12 +107,9 @@ find_internal_symbols <- function(env = getNamespace("staticimports")) {
 }
 
 
-#' Given an environment, find all internal dependencies used by each object,
-#' recursively
-#'
-#' @inheritParams find_internal_symbols
+#' @rdname find_internal_symbols
 #' @export
-find_internal_symbols_recursive <- function(env = getNamespace("staticimports")) {
+find_internal_deps <- function(env = "staticimports") {
   if (is_string(env)) env <- getNamespace(env)
 
   obj_symbols <- find_internal_symbols(env)
