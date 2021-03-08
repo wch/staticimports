@@ -44,8 +44,10 @@ If your project imports a function from **staticimports**, and that function cha
 You can install the development version of staticimports with:
 
 ```{r eval=FALSE}
-remotes::install_github("wch/staticimports")
+remotes::install_github("wch/staticimports", INSTALL_opts="--with-keep.source")
 ```
+
+To work properly, it should be installed with source refs.
 
 ## Example
 
@@ -66,6 +68,13 @@ library(staticimports)
 
 ```{r}
 import(c("os_name", "walk"), stdout())
+```
+
+
+It is also possible to import functions from other packages:
+
+```{r}
+import("mergeVectors", stdout(), env = "shiny")
 ```
 
 
