@@ -49,15 +49,28 @@ remotes::install_github("wch/staticimports")
 
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
+To statically import functions into your package use `import()`. By default this will write to a file `R/staticimports.R` in your project.
 
 ```{r eval=FALSE}
 library(staticimports)
 
-staticimports::import()
+# This will write to R/staticimports.R
+import(c("os_name", "walk"))
+```
+
+You examine the output by writing to `stdout()`. Notice how importing `os_name` automatically brings in `is_windows`, `is_mac`, and `is_linux`.
+
+```{r echo=FALSE}
+library(staticimports)
+```
+
+```{r}
+import(c("os_name", "walk"), stdout())
 ```
 
 ## Some conventions
+
+Note: This is currently just a dumping ground for ideas.
 
 ### Don't use `force()`
 
