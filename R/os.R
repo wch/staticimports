@@ -4,9 +4,7 @@ is_mac     <- function() Sys.info()[['sysname']] == 'Darwin'
 
 is_linux   <- function() Sys.info()[['sysname']] == 'Linux'
 
-# Get the name of the OS
 os_name <- function() {
-  #foo
   if (is_windows()) {
     "win"
   } else if (is_mac()) {
@@ -18,18 +16,4 @@ os_name <- function() {
   } else {
     "unknown"
   }
-}
-
-
-foo <- function() {
-  bar()
-}
-
-
-bar <- function() {
-  z()
-}
-
-z <- function() {
-  foo()
 }

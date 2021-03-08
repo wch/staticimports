@@ -37,16 +37,13 @@ find_symbols_impl <- function(x, sym_table = new.env()) {
       sym_table[[x_str]] <- TRUE
     }
 
-  } else if (is.language(x)) {
+  } else if (is.language(x) || is.pairlist(x)) {
+    # Function parameters are pairlists
     map_null(x, find_symbols_impl, sym_table)
 
   } else if (is.function(x)) {
     find_symbols_impl(body(x), sym_table)
     find_symbols_impl(formals(x), sym_table)
-
-  } else if (is.pairlist(x)) {
-    # Function parameters are pairlists
-    map_null(x, find_symbols_impl, sym_table)
 
   } else if (is.atomic(x)) {
     # Ignore atomic types; they can't contain symbols.
