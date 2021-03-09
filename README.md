@@ -20,6 +20,8 @@ The benefits of doing things this way:
 -   You can specify the individual functions to import. This is faster
     and lighter-weight than loading a separate package, especially if
     the package has much more functionality than you need.
+-   There is zero commitment: After you use staticimports once, you
+    never have to use it again.
 
 Instead of copying and pasting utility functions from project to
 project, the utility functions can be centralized in **staticimports**,
@@ -130,7 +132,6 @@ staticimports::import_objs(c("map", "walk"), stdout())
 
 ## TODO
 
--   Add a way to declare imports for a project.
 -   Figure out and explain licensing issues.
 -   Write license info in generated file.
 

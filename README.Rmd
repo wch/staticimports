@@ -27,6 +27,7 @@ The benefits of doing things this way:
 * A package/project that uses staticimports will not take a run-time dependency staticimports.
 * Any changes to a function in **staticimports** will not affect a project that uses them, until the author decides to re-import them.
 * You can specify the individual functions to import. This is faster and lighter-weight than loading a separate package, especially if the package has much more functionality than you need.
+* There is zero commitment: After you use staticimports once, you never have to use it again.
 
 Instead of copying and pasting utility functions from project to project, the utility functions can be centralized in **staticimports**, where they can be vetted and tested.
 
