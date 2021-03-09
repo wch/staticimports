@@ -70,17 +70,6 @@ library(staticimports)
 import(c("os_name", "walk"), stdout())
 ```
 
-
-It is also possible to import functions from other packages:
-
-```{r}
-import("mergeVectors", stdout(), env = "shiny")
-```
-
-Note that if the package is not written with staticimports in mind, then the statically-imported functions may not work correctly. For example, if a function uses a function that is dynamically imported from another package, then it won't work when you statically import it (unless your package also dynamically imports that package).
-
-Also, note that if you statically import functions from another package, there likely will be issues with licensing that you will need to resolve.
-
 ## TODO
 
 * Add a way to declare imports for a project.
