@@ -1,11 +1,13 @@
 Package: staticimports
 Title: Statically Import Utility Functions
 Version: 0.0.0.9000
-Authors@R:
+Authors@R: c(
     person(given = "Winston",
            family = "Chang",
            role = c("aut", "cre"),
-           email = "winston@stdout.org")
+           email = "winston@stdout.org"),
+    person(family = "RStudio", role = "cph")
+    )
 Description: Provides utility functions that can be copied into another package.
      Other packages do not need to take a dependency on staticimports; the
      functions can be copied to the R/ directory of the package.
@@ -14,8 +16,8 @@ Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
-Imports: 
+Imports:
     here
-Suggests: 
+Suggests:
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
