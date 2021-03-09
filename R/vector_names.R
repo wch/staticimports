@@ -38,8 +38,8 @@ all_unnamed <- function (x) {
 
 
 
-# Different from the all_named and any_named functions, in that those functions
-# report whether each element is named or not. This function reports whether the
+# Different from the all_named and any_named functions: those functions report
+# whether each element is named or not, while this function reports whether the
 # vector itself has a name attribute; it returns TRUE even if some names are "",
 # or the vector is length-0.
 is_named <- function(x) {
