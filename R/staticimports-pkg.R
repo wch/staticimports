@@ -1,3 +1,7 @@
+# @staticimports
+#   walk is_string cat0
+
+
 #' Statically import objects
 #'
 #' @description
@@ -15,16 +19,17 @@
 #' @param dir A directory
 #' @param outfile File to write to. Defaults to R/staticimports.R in the
 #'   current project. Use `stdout()` to output to console.
-#' @param env A string naming a package, or an environment.
+#' @param source A directory containing source files, or an environment to use
+#'   as the source.
 #'
 #' @export
 import <- function(
-  dir = here::here("R/"),
+  dir     = here::here("R/"),
   outfile = here::here("R/staticimports.R"),
-  env = "staticimports")
+  source  = system.file("R", package = "staticimports"))
 {
   names <- find_staticimports(dir)
-  import_objs(names, outfile, env)
+  import_objs(names, outfile, source)
 }
 
 #' Statically import specific objects
@@ -44,9 +49,17 @@ import <- function(
 import_objs <- function(
   names,
   outfile = here::here("R/staticimports.R"),
-  env = "staticimports")
+  source  = system.file("R", package = "staticimports"))
 {
-  if (is_string(env)) env <- getNamespace(env)
+  if (is.environment(source)) {
+    env <- source
+  } else {
+    env <- new.env()
+    files <- dir(source, pattern = "\\.[r|R]$", full.names = TRUE)
+    for (file in files) {
+      source(file, local = env)
+    }
+  }
 
   dep_table <- find_internal_deps(env)
   all_dep_names <- c(names, unlist(dep_table[names], recursive = FALSE, use.names = FALSE))

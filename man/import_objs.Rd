@@ -7,7 +7,7 @@
 import_objs(
   names,
   outfile = here::here("R/staticimports.R"),
-  env = "staticimports"
+  source = system.file("R", package = "staticimports")
 )
 }
 \arguments{
@@ -16,7 +16,8 @@ import_objs(
 \item{outfile}{File to write to. Defaults to R/staticimports.R in the
 current project. Use \code{stdout()} to output to console.}
 
-\item{env}{A string naming a package, or an environment.}
+\item{source}{A directory containing source files, or an environment to use
+as the source.}
 }
 \description{
 Statically import specific objects
