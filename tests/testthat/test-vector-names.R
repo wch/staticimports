@@ -1,0 +1,35 @@
+
+
+test_that("Vector names", {
+  expect_false(any_unnamed(list()))
+  expect_false(any_unnamed(named_list()))
+  expect_false(any_unnamed(list(a=1)))
+  expect_true (any_unnamed(list(1)))
+  expect_false(any_unnamed(list(a=1, b=2)))
+  expect_true (any_unnamed(list(a=1, 2)))
+  expect_true (any_unnamed(list(1, 2)))
+
+  expect_false(any_named(list()))
+  expect_false(any_named(named_list()))
+  expect_true (any_named(list(a=1)))
+  expect_false(any_named(list(1)))
+  expect_true (any_named(list(a=1, b=2)))
+  expect_true (any_named(list(a=1, 2)))
+  expect_false(any_named(list(1, 2)))
+
+  expect_true (all_unnamed(list()))
+  expect_true (all_unnamed(named_list()))
+  expect_false(all_unnamed(list(a=1)))
+  expect_true (all_unnamed(list(1)))
+  expect_false(all_unnamed(list(a=1, b=2)))
+  expect_false(all_unnamed(list(a=1, 2)))
+  expect_true (all_unnamed(list(1, 2)))
+
+  expect_true (all_named(list()))
+  expect_true (all_named(named_list()))
+  expect_true (all_named(list(a=1)))
+  expect_false(all_named(list(1)))
+  expect_true (all_named(list(a=1, b=2)))
+  expect_false(all_named(list(a=1, 2)))
+  expect_false(all_named(list(1, 2)))
+})
