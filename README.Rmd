@@ -44,35 +44,46 @@ If your project imports a function from **staticimports**, and that function cha
 You can install the development version of staticimports with:
 
 ```{r eval=FALSE}
-remotes::install_github("wch/staticimports", INSTALL_opts="--with-keep.source")
+remotes::install_github("wch/staticimports")
 ```
 
-To work properly, it should be installed with source refs.
+## Usage
 
-## Example
+To use, put a comment block starting with `# @staticimports` in one of your R source files. For example, your `utils.R` may have this at the top:
 
-To statically import functions into your package use `import()`. By default this will write to a file `R/staticimports.R` in your project.
+```
+# @staticimports
+#  os_name %||%
+#  map walk
+```
+
+This comment block names the functions to copy from staticimports. To do the import, run:
 
 ```{r eval=FALSE}
-library(staticimports)
-
-# This will write to R/staticimports.R
-import(c("os_name", "walk"))
+staticimports::import()
 ```
+
+By default this will write these funcitons to a file `R/staticimports.R` in your project.
 
 You examine the output by writing to `stdout()` instead of `R/staticimports.R`. Notice how importing `os_name` automatically brings in `is_windows`, `is_mac`, and `is_linux`.
 
-```{r echo=FALSE}
-library(staticimports)
+```{r eval=FALSE}
+staticimports::import(outfile = stdout())
 ```
 
-```{r}
-import(c("os_name", "walk"), stdout())
+```{r echo=FALSE}
+staticimports::import_objs(c("os_name", "%||%", "map", "walk"), stdout())
 ```
+
+For testing what the output will look like, you can use `import_objs()` to see what it looks like when you import specific objects by name:
+
+```{r}
+staticimports::import_objs(c("map", "walk"), stdout())
+```
+
 
 ## TODO
 
-* Add a way to declare imports for a project.
 * Figure out and explain licensing issues.
 * Write license info in generated file.
 
