@@ -1,20 +1,51 @@
-#' Statically import one or more functions
+#' Statically import objects
 #'
-#' @param names A character vector of names of objects to import.
+#' @description
+#'
+#' This finds staticimports declarations, which are comment blocks that look
+#' like this:
+#'
+#' ```
+#' # @staticimports map map_chr map_lgl os_name any_named any_unnamed
+#' # all_named all_unnamed
+#' ```
+#' It statically imports the named objects into a file, by default
+#' `R/staticimports.R`.
+#'
+#' @param dir A directory
 #' @param outfile File to write to. Defaults to R/staticimports.R in the
 #'   current project. Use `stdout()` to output to console.
 #' @param env A string naming a package, or an environment.
 #'
+#' @export
+import <- function(
+  dir = here::here("R/"),
+  outfile = here::here("R/staticimports.R"),
+  env = "staticimports")
+{
+  names <- find_staticimports(dir)
+  import_objs(names, outfile, env)
+}
+
+#' Statically import specific objects
+#'
+#' @inheritParams import
+#' @param names A character vector of names of objects to import.
+#'
 #' @examples
 #' if (interactive()) {
 #' # Import `os_name` and `walk` into your project
-#' import(c("os_name", "walk"))
+#' import_objs(c("os_name", "walk"))
 #' }
 #'
 #' # Write to stdout instead of R/staticimports.R
-#' import(c("os_name", "walk"), stdout())
+#' import_objs(c("os_name", "walk"), stdout())
 #' @export
-import <- function(names, outfile = here::here("R/staticimports.R"), env = "staticimports") {
+import_objs <- function(
+  names,
+  outfile = here::here("R/staticimports.R"),
+  env = "staticimports")
+{
   if (is_string(env)) env <- getNamespace(env)
 
   dep_table <- find_internal_deps(env)
@@ -58,6 +89,63 @@ import <- function(names, outfile = here::here("R/staticimports.R"), env = "stat
   write_deps(all_dep_objs, outfile)
 }
 
+
+
+
+#' Find any static imports in the comments of the R/ directory
+#'
+#' This finds staticimports declarations, which are comment blocks that look
+#' like:
+#'
+#' ```
+#' # @staticimports map map_chr map_lgl os_name any_named any_unnamed
+#' # all_named all_unnamed
+#' ```
+#'
+#' @param dir A directory to look in. Defaults to
+#'
+#' @return A character vector of declared static imports.
+#'
+#' @export
+find_staticimports <- function(dir = here::here("R/")) {
+  files <- dir(dir, pattern = "\\.[r|R]$", full.names = TRUE)
+
+  lines <- unlist(lapply(files, function(file) {
+    text <- readLines(file)
+    match_lines <- grep("^#\\s+@staticimports", text)
+    if (!any(match_lines)) {
+      return(NULL)
+    }
+
+    staticimports_line_idx <- integer()
+
+    # Find any lines after this that start with #
+    comment_start_lines <-  grep("^#", text)
+    for (i in match_lines) {
+      j <- i
+      while (j %in% comment_start_lines) {
+        staticimports_line_idx[[length(staticimports_line_idx) + 1]] <- j
+        j <- j + 1
+      }
+    }
+
+    # staticimports_line_idx
+
+    match_lines_text <- text[staticimports_line_idx]
+  }))
+
+  lines <- sub("^#\\s+@staticimports", "", lines)
+  lines <- sub("^#", "", lines)
+  names <- unique(unlist(strsplit(lines, " +")))
+  names <- setdiff(names, "")
+
+  names
+}
+
+
+# =====================================================================
+# Symbol/dependency tracing
+# =====================================================================
 
 #' Find all symbols used in a function or language object.
 #'

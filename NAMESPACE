@@ -2,5 +2,7 @@
 
 export(find_internal_deps)
 export(find_internal_symbols)
+export(find_staticimports)
 export(find_symbols)
 export(import)
+export(import_objs)
