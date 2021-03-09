@@ -58,10 +58,12 @@ import_objs <- function(
   get_src_text <- function(obj, name) {
     srcref <- attr(obj, "srcref")
     if (is.null(srcref)) {
-      message(
-        "Note: can't get srcref for `", name,
-        "`. Package should be installed with source refs. Using `deparse()` instead."
-      )
+      if (is.function(obj)) {
+        message(
+          "Note: can't get srcref for `", name,
+          "`. Package should be installed with source refs. Using `deparse()` instead."
+        )
+      }
       return(deparse(obj))
       # return("NULL  # Note: no srcref was available for this object")
     }
