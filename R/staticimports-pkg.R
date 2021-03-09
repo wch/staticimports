@@ -79,7 +79,11 @@ import_objs <- function(
     for (i in seq_along(fns)) {
       fn_name <- names(fns)[i]
       cat0(
-        "\n", fn_name, " <- ",
+        "\n",
+        # Ensure that names with weird characters, like %||%, get backticks,
+        # like `%||%`.
+        capture.output(print(as.symbol(fn_name))),
+        " <- ",
         paste0(get_src_text(fns[[i]], fn_name), collapse = "\n"),
         "\n",
         file = outfile,
