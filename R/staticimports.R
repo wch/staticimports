@@ -8,10 +8,6 @@ is_string <- function(x) {
   is.character(x) && length(x) == 1 && !is.na(x)
 }
 
-map2 <- function(.x, .y, .f, ...) {
-  mapply(.f, .x, .y, ..., SIMPLIFY = FALSE)
-}
-
 walk <- function(.x, .f, ...) {
   for (i in seq_along(.x)) {
     .f(.x[[i]], ...)
