@@ -58,7 +58,7 @@ import_objs <- function(
     env <- new.env()
     files <- dir(source, pattern = "\\.[r|R]$", full.names = TRUE)
     for (file in files) {
-      source(file, local = env)
+      source(file, local = env, keep.source = TRUE)
     }
   }
 
