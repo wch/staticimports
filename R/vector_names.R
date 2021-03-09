@@ -51,11 +51,23 @@ is_unnamed <- function(x) {
 }
 
 
-named_list_val <- list(a = 1)[0]
-# Returns an empty named list
+# Returns an empty named list - store the value so it doesn't have to be
+# reconstructed every time.
 named_list <- function() named_list_val
+named_list_val <- list(a = 1)[0]
 
-named_chr_val <- c(a = "c")[0]
+# Returns an empty named logical vector
+named_lgl <- function() named_lgl_val
+named_lgl_val <- c(a = TRUE)[0]
+
+# Returns an empty named integer vector
+named_int <- function() named_int_val
+named_int_val <- c(a = 1L)[0]
+
+# Returns an empty named numeric (double) vector
+named_dbl <- function() named_dbl_val
+named_dbl_val <- c(a = 1.1)[0]
+
 # Returns an empty named character vector
 named_chr <- function() named_chr_val
-
+named_chr_val <- c(a = "c")[0]
