@@ -13,6 +13,7 @@ knitr::opts_chunk$set(
   fig.path = "man/figures/README-",
   out.width = "100%"
 )
+library(staticimports)
 ```
 
 # staticimports
@@ -20,29 +21,29 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
-**staticimports** makes it easy to statically import functions into R projects or packages. The "static" importing means that the functions are copied into the project as text, instead of being loaded from a separate package at run time.
+staticimports makes it easy to statically import functions into R projects or packages. The "static" importing means that the functions are copied into the project as text, instead of being loaded from a separate package at run time.
 
 The benefits of doing things this way:
 
-* A project or package that uses staticimports will not take a run-time dependency staticimports.
+* A project or package that uses staticimports will not take a run-time dependency on the staticimports package.
 * Statically imported functions will not change underneath you unexpectedly. They only will change when you re-import them, and then you can inspect the diff for changes that may cause problems.
 * You can specify the individual functions to import. This is faster and lighter-weight than loading a separate package, especially if the package has much more functionality than you need.
 * There is zero commitment: After you use staticimports once, you never have to use it again. You can even move the imported functions out to other files and treat them like any other functions in your project.
 
 Where can statically imported functions come from?
 
-* The **staticimports** package itself contains many utility functions that can be imported into a project.
+* The staticimports package itself contains many utility functions that can be imported into a project.
 * You can a set of utility functions on in a directory on your computer. For example, you may maintain your own set of functions that you can statically import into a project.
 
 Instead of copying and pasting utility functions from project to project, the utility functions can be centralized in a place where they can be vetted and tested.
 
-The functions in **staticimports** are designed to be:
+The functions in staticimports are designed to be:
 
 * Fast
 * Simple
 * Have no external dependencies
 
-If your project imports a function from **staticimports**, and that function changes in a way that has a negative impact on your project, you can simply stop importing it from **staticimports**, and copy the old version to a separate file.
+If your project imports a function from staticimports, and that function changes in a way that has a negative impact on your project, you can simply stop importing it from staticimports, and copy the old version to a separate file.
 
 
 ## Installation
@@ -91,47 +92,14 @@ import_objs(c("map", "walk"), stdout())
 
 ## Under the hood
 
-The functions provided by **staticimports** are in the [inst/R](https://github.com/wch/staticimports/tree/main/inst/R) directory of the source. When `import()` is called, it sources all of those files into a new environment. Then it finds all the internal dependencies among those functions. If a function `fn_a` is requested, and it uses a function `fn_b`, then both of those functions will be copied to the project.
+The functions provided by staticimports are in the [inst/R](https://github.com/wch/staticimports/tree/main/inst/R) directory of the source. When `import()` is called, it sources all of those files into a new environment. Then it finds all the internal dependencies among those functions. If a function `fn_a` is requested, and it uses a function `fn_b`, then both of those functions will be copied to the project.
 
 If a different set of source files is used, it sources all of the files in the target directory into a new environment and then proceeds the same way.
 
+For functions, it will use source refs to copy the original text. For non-functions (say, a list with some precomputed values), it will call `deparse()` on the object and write that to the file. Note that deparsing will not work correctly for all objects.
 
 ## TODO
 
 * Figure out and explain licensing issues.
 * Write license info in generated file.
 
-## Some conventions
-
-Note: This is currently just a dumping ground for ideas.
-
-### Don't use `force()`
-
-Two reasons:
-
-* Error reporting
-* Missing args
-
-```{r error=TRUE}
-with_option <- function(x, y) {
-  force(x)
-}
-
-with_option(a = 123)
-
-with_option2 <- function(x, y) {
-  x
-}
-
-with_option2(a = 123)
-
-err <- function() { stop("asdf") }
-
-f()
-```
-
-
-
-### Don't use `match.arg()`
-
-* `match.arg()` is slow, at least if values are inferred automatically.
