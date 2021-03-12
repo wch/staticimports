@@ -1,9 +1,9 @@
 str_replace <- function(text, pattern, replacement){
-  sub(pattern = pattern, replacement = "", x = text, perl = TRUE)
+  sub(pattern = pattern, replacement = replacement, x = text, perl = TRUE)
 }
 
 str_replace_all <- function(text, pattern, replacement){
-  gsub(pattern = pattern, replacement = "", x = text, perl = TRUE)
+  gsub(pattern = pattern, replacement = replacement, x = text, perl = TRUE)
 }
 
 str_remove_all <- function(text, pattern){
