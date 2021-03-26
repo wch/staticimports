@@ -1,7 +1,5 @@
 # @staticimports pkg:staticimports
 #   is_string cat0
-
-# @staticimports pkg:staticimports
 #   map_chr walk
 
 #' Statically import objects
