@@ -1,6 +1,7 @@
 
-
 test_that("Vector names", {
+  load_exports()
+
   expect_false(any_unnamed(list()))
   expect_false(any_unnamed(named_list()))
   expect_false(any_unnamed(list(a=1)))
