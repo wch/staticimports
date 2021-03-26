@@ -88,7 +88,7 @@ import <- function(
 #' }
 #'
 #' # Write to stdout instead of R/staticimports.R
-#' import_objs(c("os_name", "walk"), stdout())
+#' import_objs(c("os_name", "walk"), outfile = stdout())
 #' @export
 import_objs <- function(
   names,
