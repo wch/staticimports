@@ -4,6 +4,8 @@
 # staticimports
 
 <!-- badges: start -->
+
+[![R-CMD-check](https://github.com/wch/staticimports/workflows/R-CMD-check/badge.svg)](https://github.com/wch/staticimports/actions)
 <!-- badges: end -->
 
 staticimports makes it easy to statically import functions into R
@@ -158,8 +160,8 @@ same way.
 
 For functions, it will use source refs to copy the original text. For
 non-functions (say, a list with some precomputed values), it will call
-`deparse()` on the object and write that to the file. Note that this
-will not work correctly for all objects.
+`deparse()` on the object and write that to the file. Note that
+deparsing will not work correctly for all objects.
 
 ## TODO
 

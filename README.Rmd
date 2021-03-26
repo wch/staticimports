@@ -19,6 +19,7 @@ library(staticimports)
 # staticimports
 
 <!-- badges: start -->
+[![R-CMD-check](https://github.com/wch/staticimports/workflows/R-CMD-check/badge.svg)](https://github.com/wch/staticimports/actions)
 <!-- badges: end -->
 
 staticimports makes it easy to statically import functions into R projects or packages. The "static" importing means that the functions are copied into the project as text, instead of being loaded from a separate package at run time.
