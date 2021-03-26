@@ -152,7 +152,7 @@ import_objs <- function(
         "\n",
         # Ensure that names with weird characters, like %||%, get backticks,
         # like `%||%`.
-        capture.output(print(as.symbol(fn_name))),
+        utils::capture.output(print(as.symbol(fn_name))),
         " <- ",
         paste0(get_src_text(fns[[i]], fn_name), collapse = "\n"),
         "\n",
