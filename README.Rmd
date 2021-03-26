@@ -60,19 +60,23 @@ remotes::install_github("wch/staticimports")
 To use, put a comment block starting with `# @staticimports` in one of your R source files. For example, your `utils.R` may have this at the top:
 
 ```
-# @staticimports
+# @staticimports pkg:staticimports
 #  os_name %||%
 #  map walk
 ```
 
-This comment block names the functions to copy from staticimports. To do the import, run:
+The `pkg:staticimports` tells it to import from staticimports package. To import from a different package, use `pkg:mypackage`. It looks in a directory of the package named [`staticexports`](https://github.com/wch/staticimports/tree/main/inst/staticexports) to find the objects.
+
+The following lines name the objects to import from the source. In this case, they are `os_name`, `%||%`, `map`, and `walk`.
+
+To perform the import, run:
 
 ```{r eval=FALSE}
 library(staticimports)
 import()
 ```
 
-By default this will write these funcitons to a file `R/staticimports.R` in your project.
+By default this will write the functions to a file `R/staticimports.R` in your project.
 
 You examine the output by writing to `stdout()` instead of `R/staticimports.R`. Notice how importing `os_name` automatically brings in `is_windows`, `is_mac`, and `is_linux`.
 
@@ -81,19 +85,20 @@ import(outfile = stdout())
 ```
 
 ```{r echo=FALSE}
-import_objs(c("os_name", "%||%", "map", "walk"), stdout())
+import_objs(c("os_name", "%||%", "map", "walk"), outfile = stdout())
 ```
+
 
 For testing what the output will look like, you can use `import_objs()` to see what it looks like when you import specific objects by name:
 
 ```{r}
-import_objs(c("map", "walk"), stdout())
+import_objs(c("map", "walk"), outfile = stdout())
 ```
 
 
 ## Under the hood
 
-The functions provided by staticimports are in the [inst/R](https://github.com/wch/staticimports/tree/main/inst/R) directory of the source. When `import()` is called, it sources all of those files into a new environment. Then it finds all the internal dependencies among those functions. If a function `fn_a` is requested, and it uses a function `fn_b`, then both of those functions will be copied to the project.
+The functions provided by staticimports are in the [inst/staticexports](https://github.com/wch/staticimports/tree/main/inst/staticexports) directory of the repository. When `import()` is called, it sources all of those files into a new environment. Then it finds all the internal dependencies among those functions. If a function `fn_a` is requested, and it uses a function `fn_b`, then both of those functions will be copied to the project.
 
 If a different set of source files is used, it sources all of the files in the target directory into a new environment and then proceeds the same way.
 

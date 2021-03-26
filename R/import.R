@@ -56,7 +56,9 @@ import <- function(
 {
   imports <- find_staticimports(dir)
 
-  file.remove(outfile)
+  if (is.character(outfile)) {
+    file.remove(outfile)
+  }
   for (import in imports) {
     import_objs(
       names   = import$names,
