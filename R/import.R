@@ -255,7 +255,7 @@ find_staticimports <- function(dir = here::here("R/")) {
 
     list(
       source = source,
-      names = unlist(names)
+      names = sort(unlist(names), method = "radix")
     )
   })
 
