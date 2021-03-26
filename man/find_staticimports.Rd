@@ -10,14 +10,15 @@ find_staticimports(dir = here::here("R/"))
 \item{dir}{A directory to look in. Defaults to}
 }
 \value{
-A character vector of declared static imports.
+A list of lists. Each sub-list has a \code{source} field and \code{names}.
 }
 \description{
 This finds staticimports declarations, which are comment blocks that look
 like:
 }
 \details{
-\preformatted{# @staticimports map map_chr map_lgl os_name any_named any_unnamed
-# all_named all_unnamed
+\preformatted{# @staticimports pkg:staticimports
+#   map map_chr map_lgl os_name any_named any_unnamed
+#   all_named all_unnamed
 }
 }

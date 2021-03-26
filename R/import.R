@@ -1,35 +1,70 @@
-# @staticimports
-#   walk is_string cat0
+# @staticimports pkg:staticimports
+#   is_string cat0
 
+# @staticimports pkg:staticimports
+#   map_chr walk
 
 #' Statically import objects
 #'
 #' @description
 #'
-#' This finds staticimports declarations, which are comment blocks that look
-#' like this:
+#' This function finds staticimports declarations and copies the objects to a
+#' target file.
+#'
+#' staticmports declartions are comment blocks that look like this:
+
 #'
 #' ```
-#' # @staticimports map map_chr map_lgl os_name any_named any_unnamed
-#' # all_named all_unnamed
+#' # @staticimports pkg:staticimports
+#' #   map map_chr map_lgl os_name any_named any_unnamed
+#' #   all_named all_unnamed
 #' ```
-#' It statically imports the named objects into a file, by default
+
+#'
+#' The `pkg:staticimports` means to import objects from the package named
+#' **staticimports**. If you use `pkg:mypackage`, it will import from
+#' **mypackage**.
+#'
+#' On the following lines are the names of the objects to import.
+#'
+
+#'
+#' The import declaration can also use a path. For example:
+#'
+#' ```
+#' # @staticimports ../mystaticexports
+#' #   map map_chr map_lgl os_name any_named any_unnamed
+#' #   all_named all_unnamed
+#' ```
+
+#'
+#' If a relative path is used, it will be relative to the top-leve of this
+#' project, as determined by [here::here()].
+#'
+#' The statically imported objects are written a file, by default
 #' `R/staticimports.R`.
 #'
-#' @param dir A directory
-#' @param outfile File to write to. Defaults to R/staticimports.R in the
-#'   current project. Use `stdout()` to output to console.
-#' @param source A directory containing source files, or an environment to use
-#'   as the source.
+#' @param dir A directory containing .R files to scan for import declarations.
+#' @param outfile File to write to. Defaults to R/staticimports.R in the current
+#'   project. Use `stdout()` to output to console.
 #'
 #' @export
 import <- function(
   dir     = here::here("R/"),
-  outfile = here::here("R/staticimports.R"),
-  source  = system.file("R", package = "staticimports"))
+  outfile = here::here("R/staticimports.R")
+)
 {
-  names <- find_staticimports(dir)
-  import_objs(names, outfile, source)
+  imports <- find_staticimports(dir)
+
+  file.remove(outfile)
+  for (import in imports) {
+    import_objs(
+      names   = import$names,
+      source  = import$source,
+      outfile = outfile,
+      append   = TRUE
+    )
+  }
 }
 
 
@@ -37,6 +72,9 @@ import <- function(
 #'
 #' @inheritParams import
 #' @param names A character vector of names of objects to import.
+#' @param source A directory containing source files, or an environment to use
+#'   as the source.
+#' @param append If `TRUE`, append to the output file; otherwise overwrite.
 #'
 #' @examples
 #' if (interactive()) {
@@ -49,9 +87,10 @@ import <- function(
 #' @export
 import_objs <- function(
   names,
+  source  = system.file("staticexports", package = "staticimports"),
   outfile = here::here("R/staticimports.R"),
-  source  = system.file("R", package = "staticimports"))
-{
+  append = FALSE
+) {
   if (is.environment(source)) {
     env <- source
   } else {
@@ -117,46 +156,103 @@ import_objs <- function(
 #' like:
 #'
 #' ```
-#' # @staticimports map map_chr map_lgl os_name any_named any_unnamed
-#' # all_named all_unnamed
+#' # @staticimports pkg:staticimports
+#' #   map map_chr map_lgl os_name any_named any_unnamed
+#' #   all_named all_unnamed
 #' ```
 #'
 #' @param dir A directory to look in. Defaults to
 #'
-#' @return A character vector of declared static imports.
+#' @return A list of lists. Each sub-list has a `source` field and `names`.
 #'
 #' @export
 find_staticimports <- function(dir = here::here("R/")) {
   files <- dir(dir, pattern = "\\.[r|R]$", full.names = TRUE)
 
-  lines <- unlist(lapply(files, function(file) {
+  comment_blocks <- lapply(files, function(file) {
     text <- readLines(file)
-    match_lines <- grep("^#\\s+@staticimports", text)
-    if (!any(match_lines)) {
+    match_line_idxs <- grep("^#\\s+@staticimports", text)
+    if (length(match_line_idxs) == 0) {
       return(NULL)
     }
 
-    staticimports_line_idx <- integer()
-
+    comment_blocks <- list()
     # Find any lines after this that start with #
-    comment_start_lines <-  grep("^#", text)
-    for (i in match_lines) {
-      j <- i
-      while (j %in% comment_start_lines) {
-        staticimports_line_idx[[length(staticimports_line_idx) + 1]] <- j
+    comment_start_line_idxs <-  grep("^#", text)
+    for (i in seq_along(match_line_idxs)) {
+      match_line_idx <- match_line_idxs[[i]]
+      comment_block_lines <- text[[match_line_idx]]
+
+      j <- match_line_idx + 1
+      while (j %in% comment_start_line_idxs) {
+        comment_block_lines[length(comment_block_lines) + 1] <- text[[j]]
         j <- j + 1
       }
+
+      comment_blocks[[i]] <- list(
+        file = file,
+        start_line = match_line_idx,
+        text = comment_block_lines
+      )
     }
 
-    # staticimports_line_idx
+    comment_blocks
+  })
 
-    match_lines_text <- text[staticimports_line_idx]
-  }))
+  comment_blocks <- unlist(comment_blocks, recursive = FALSE)
 
-  lines <- sub("^#\\s+@staticimports", "", lines)
-  lines <- sub("^#", "", lines)
-  names <- unique(unlist(strsplit(lines, " +")))
-  names <- setdiff(names, "")
+  imports <- lapply(comment_blocks, function(block) {
+    # First line of each block starts is "# @staticimports xxxxx"
+    first <- block$text[[1]]
+    source <- sub("^#\\s+@staticimports\\s+", "", first)
+    source <- sub("\\s+$", "", source)
 
-  names
+    if (!grepl("^\\S+$", source)) {
+      stop(
+        'staticimports spec does not have format "# @staticimports xxxxx" ',
+        'in ', block$file, ", ", "line ", block$start_line, ":\n",
+        first
+      )
+    }
+
+    lines <- sub("^#", "", block$text[-1])
+    names <- unique(unlist(strsplit(lines, " +")))
+    names <- setdiff(names, "")
+
+    list(
+      source = source,
+      names = names
+    )
+  })
+
+
+  # Merge together staticimport specifications that come from the same file.
+  sources <- unique(map_chr(imports, "source"))
+  # Use radix to ensure consistent sorting across locales.
+  sources <- sort(sources, method = "radix")
+  imports <- lapply(sources, function(source) {
+    names <- lapply(imports, function(x) {
+      if (x$source == source) x$names
+      else                    NULL
+    })
+
+    list(
+      source = source,
+      names = unlist(names)
+    )
+  })
+
+  # Convert "pkg:foo" to the path in the package.
+  imports <- lapply(imports, function(x) {
+    if (grepl("^pkg:\\S+$", x$source)) {
+      pkg_name <- sub("^pkg:", "", x$source)
+      x$source <- system.file("staticexports", package = pkg_name)
+    } else {
+      x$source <- here::here(x$source)
+      x$source <- normalizePath(x$source)
+    }
+    x
+  })
+
+  imports
 }

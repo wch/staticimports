@@ -8,6 +8,14 @@ is_string <- function(x) {
   is.character(x) && length(x) == 1 && !is.na(x)
 }
 
+map_chr <- function(.x, .f, ...) {
+  if (is.character(.f)) {
+    vapply(.x, `[[`, .f, ..., FUN.VALUE = NA_character_)
+  } else {
+    vapply(.x, .f, ..., FUN.VALUE = NA_character_)
+  }
+}
+
 walk <- function(.x, .f, ...) {
   for (i in seq_along(.x)) {
     .f(.x[[i]], ...)

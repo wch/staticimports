@@ -6,18 +6,21 @@
 \usage{
 import_objs(
   names,
+  source = system.file("staticexports", package = "staticimports"),
   outfile = here::here("R/staticimports.R"),
-  source = system.file("R", package = "staticimports")
+  append = FALSE
 )
 }
 \arguments{
 \item{names}{A character vector of names of objects to import.}
 
-\item{outfile}{File to write to. Defaults to R/staticimports.R in the
-current project. Use \code{stdout()} to output to console.}
-
 \item{source}{A directory containing source files, or an environment to use
 as the source.}
+
+\item{outfile}{File to write to. Defaults to R/staticimports.R in the current
+project. Use \code{stdout()} to output to console.}
+
+\item{append}{If \code{TRUE}, append to the output file; otherwise overwrite.}
 }
 \description{
 Statically import specific objects
