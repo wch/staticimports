@@ -40,7 +40,7 @@ jobs:
 
       - name: Install packages used in vignettes
         run: |
-          remotes::install_cran("purrr")
+          remotes::install_cran(c("bench", "purrr"))
         shell: Rscript {0}
 
       - name: Install package
