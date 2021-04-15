@@ -60,5 +60,64 @@ walk2 <- function(.x, .y, .f, ...) {
 }
 
 map2 <- function(.x, .y, .f, ...) {
-  mapply(.f, .x, .y, ..., SIMPLIFY = FALSE)
+  res <- vector("list", length(.x))
+  for (i in seq_along(.x)) {
+    res[[i]] <- .f(.x[[i]], .y[[i]], ...)
+  }
+  names(res) <- names(.x)
+  res
+}
+
+map2_lgl <- function(.x, .y, .f, ...) {
+  res <- as.logical(map2(.x, .y, .f, ...))
+  names(res) <- names(.x)
+  res
+}
+
+map2_int <- function(.x, .y, .f, ...) {
+  res <- as.integer(map2(.x, .y, .f, ...))
+  names(res) <- names(.x)
+  res
+}
+
+map2_dbl <- function(.x, .y, .f, ...) {
+  res <- as.double(map2(.x, .y, .f, ...))
+  names(res) <- names(.x)
+  res
+}
+
+map2_chr <- function(.x, .y, .f, ...) {
+  res <- as.character(map2(.x, .y, .f, ...))
+  names(res) <- names(.x)
+  res
+}
+
+
+
+vec_index <- function(x) {
+  names(x) %||% seq_along(x)
+}
+
+iwalk <- function(.x, .f, ...) {
+  walk2(.x, vec_index(.x), .f, ...)
+}
+
+imap <- function(.x, .f, ...) {
+  map2(.x, vec_index(.x), .f, ...)
+}
+
+imap_lgl <- function(.x, .f, ...) {
+  map2_lgl(.x, vec_index(.x), .f, ...)
+}
+
+imap_int <- function(.x, .f, ...) {
+  map2_int(.x, vec_index(.x), .f, ...)
+}
+
+imap_dbl <- function(.x, .f, ...) {
+  map2_dbl(.x, vec_index(.x), .f, ...)
+}
+
+imap_chr <- function(.x, .f, ...) {
+  map2_chr(.x, vec_index(.x), .f, ...)
 }
