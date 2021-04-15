@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://wch.github.io/staticimports/index.html</loc>
+  </url>
+  <url>
+    <loc>https://wch.github.io/staticimports/reference/find_internal_symbols.html</loc>
+  </url>
+  <url>
+    <loc>https://wch.github.io/staticimports/reference/find_staticimports.html</loc>
+  </url>
+  <url>
+    <loc>https://wch.github.io/staticimports/reference/find_symbols.html</loc>
+  </url>
+  <url>
+    <loc>https://wch.github.io/staticimports/reference/import.html</loc>
+  </url>
+  <url>
+    <loc>https://wch.github.io/staticimports/reference/import_objs.html</loc>
+  </url>
+  <url>
+    <loc>https://wch.github.io/staticimports/articles/speed_tests.html</loc>
+  </url>
+</urlset>
