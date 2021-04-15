@@ -116,10 +116,10 @@
 <span class="co">#&gt; # A tibble: 3 x 6</span>
 <span class="co">#&gt;   expression             min   median `itr/sec` mem_alloc `gc/sec`</span>
 <span class="co">#&gt;   &lt;bch:expr&gt;        &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 walk_purrr(x, f)    89.9µs   97.2µs     9609.   512.6KB     14.5</span>
-<span class="co">#&gt; 2 walk_lapply(x, f)   64.1µs   70.4µs    13472.      848B     16.9</span>
-<span class="co">#&gt; 3 walk_for(x, f)        47µs   51.9µs    18103.     3.5MB     18.9</span></code></pre></div>
-<p>Of the three implementations, <code>walk_for()</code> is the fastest. It is about 47% faster than <code>walk_purrr()</code>, and 28% faster than <code>walk_lapply()</code>.</p>
+<span class="co">#&gt; 1 walk_purrr(x, f)    86.7µs   94.6µs     9765.   512.6KB     14.5</span>
+<span class="co">#&gt; 2 walk_lapply(x, f)   62.3µs   68.5µs    12954.      848B     16.8</span>
+<span class="co">#&gt; 3 walk_for(x, f)        47µs     52µs    17710.     3.5MB     16.7</span></code></pre></div>
+<p>Of the three implementations, <code>walk_for()</code> is the fastest. It is about 45% faster than <code>walk_purrr()</code>, and 28% faster than <code>walk_lapply()</code>.</p>
 <p>Note that <code>walk_purrr()</code> returns the input <code>.x</code> object, whereas the other two implementations return <code>NULL</code>.</p>
 </div>
 <div id="map" class="section level3">
@@ -153,10 +153,10 @@
 <span class="co">#&gt; # A tibble: 4 x 6</span>
 <span class="co">#&gt;   expression            min   median `itr/sec` mem_alloc `gc/sec`</span>
 <span class="co">#&gt;   &lt;bch:expr&gt;       &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 map_purrr(x, f)    88.8µs   96.9µs     9858.    3.69KB     17.4</span>
-<span class="co">#&gt; 2 lapply(x, f)       62.6µs   68.9µs    12515.      848B     19.2</span>
-<span class="co">#&gt; 3 map_lapply(x, f)   64.5µs   69.8µs    13740.      848B     21.4</span>
-<span class="co">#&gt; 4 map_for(x, f)      64.2µs   69.2µs    13533.  362.89KB     14.7</span></code></pre></div>
+<span class="co">#&gt; 1 map_purrr(x, f)    86.8µs   94.2µs    10010.    3.69KB     17.1</span>
+<span class="co">#&gt; 2 lapply(x, f)       61.3µs   67.4µs    14291.      848B     21.3</span>
+<span class="co">#&gt; 3 map_lapply(x, f)   64.3µs   69.7µs    12644.      848B     19.1</span>
+<span class="co">#&gt; 4 map_for(x, f)      61.9µs     68µs    12118.  362.89KB     14.7</span></code></pre></div>
 <p>All of these implementations are within a pretty close range. Although <code>map_for()</code> is fastest, the margin is small, so we’ll just use <code>map_lapply()</code> for simplicity.</p>
 </div>
 <div id="map2" class="section level3">
@@ -190,9 +190,9 @@
 <span class="co">#&gt; # A tibble: 3 x 6</span>
 <span class="co">#&gt;   expression                min   median `itr/sec` mem_alloc `gc/sec`</span>
 <span class="co">#&gt;   &lt;bch:expr&gt;           &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 map2_purrr(x, y, f)   128.4µs    141µs     6618.    31.2KB     19.2</span>
-<span class="co">#&gt; 2 map2_mapply(x, y, f)  125.5µs    139µs     6551.      848B     24.1</span>
-<span class="co">#&gt; 3 map2_for(x, y, f)      94.7µs    101µs     8808.    31.8KB     19.1</span>
+<span class="co">#&gt; 1 map2_purrr(x, y, f)   127.2µs  139.9µs     6092.    31.2KB     16.8</span>
+<span class="co">#&gt; 2 map2_mapply(x, y, f)    123µs  137.3µs     6268.      848B     23.7</span>
+<span class="co">#&gt; 3 map2_for(x, y, f)      92.8µs   99.8µs     8805.    31.8KB     16.8</span>
 
 <span class="co"># With named vector</span>
 <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
@@ -204,16 +204,15 @@
 <span class="co">#&gt; # A tibble: 3 x 6</span>
 <span class="co">#&gt;   expression                min   median `itr/sec` mem_alloc `gc/sec`</span>
 <span class="co">#&gt;   &lt;bch:expr&gt;           &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 map2_purrr(x, y, f)   132.9µs    145µs     5760.      848B     16.2</span>
-<span class="co">#&gt; 2 map2_mapply(x, y, f)  129.8µs    137µs     6814.      848B     25.9</span>
-<span class="co">#&gt; 3 map2_for(x, y, f)      94.6µs    101µs     9169.      848B     16.8</span></code></pre></div>
+<span class="co">#&gt; 1 map2_purrr(x, y, f)   133.8µs  144.7µs     6575.      848B     19.2</span>
+<span class="co">#&gt; 2 map2_mapply(x, y, f)    125µs  134.3µs     7020.      848B     25.6</span>
+<span class="co">#&gt; 3 map2_for(x, y, f)      91.7µs   97.7µs     9710.      848B     19.1</span></code></pre></div>
 <p><code>map2_for</code> is about 27% faster than <code>map2_mapply</code>, for both named and unnamed inputs, so we’ll use <code>map2_for()</code>.</p>
 </div>
-</div>
-<div id="map2_lgl-map2_int-map2_dbl-map2_chr" class="section level2">
-<h2 class="hasAnchor">
+<div id="map2_lgl-map2_int-map2_dbl-map2_chr" class="section level3">
+<h3 class="hasAnchor">
 <a href="#map2_lgl-map2_int-map2_dbl-map2_chr" class="anchor"></a><code>map2_lgl</code>, <code>map2_int</code>, <code>map2_dbl</code>, <code>map2_chr</code>
-</h2>
+</h3>
 <p>The <code>map2*</code> functions return an atomic vector of the specified type.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Use map2_for implementation from previous section</span>
@@ -269,11 +268,11 @@
 <span class="co">#&gt; # A tibble: 5 x 6</span>
 <span class="co">#&gt;   expression                         min   median `itr/sec` mem_alloc `gc/sec`</span>
 <span class="co">#&gt;   &lt;bch:expr&gt;                    &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 map2_dbl_purrr(x, y, f)          971µs   1.13ms      861.    7.86KB     21.9</span>
-<span class="co">#&gt; 2 map2_dbl_mode(x, y, f)           845µs 945.03µs     1035.   31.05KB     17.1</span>
-<span class="co">#&gt; 3 map2_dbl_storagemode(x, y, f)    841µs 909.89µs     1044.   15.72KB     17.1</span>
-<span class="co">#&gt; 4 map2_dbl_asnumeric(x, y, f)      827µs 886.71µs     1059.   15.72KB     17.0</span>
-<span class="co">#&gt; 5 map2_dbl_for(x, y, f)            781µs 845.49µs     1005.   38.85KB     17.3</span>
+<span class="co">#&gt; 1 map2_dbl_purrr(x, y, f)          972µs   1.05ms      841.    7.86KB     19.3</span>
+<span class="co">#&gt; 2 map2_dbl_mode(x, y, f)           842µs 897.37µs      996.   31.05KB     17.0</span>
+<span class="co">#&gt; 3 map2_dbl_storagemode(x, y, f)    816µs  873.1µs     1122.   15.72KB     19.2</span>
+<span class="co">#&gt; 4 map2_dbl_asnumeric(x, y, f)      835µs 879.05µs     1079.   15.72KB     17.0</span>
+<span class="co">#&gt; 5 map2_dbl_for(x, y, f)            795µs  837.1µs     1053.   38.85KB     17.3</span>
 
 <span class="co"># Same test, with names</span>
 <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
@@ -287,11 +286,11 @@
 <span class="co">#&gt; # A tibble: 5 x 6</span>
 <span class="co">#&gt;   expression                         min   median `itr/sec` mem_alloc `gc/sec`</span>
 <span class="co">#&gt;   &lt;bch:expr&gt;                    &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 map2_dbl_purrr(x, y, f)          998µs   1.09ms      859.    7.86KB     21.9</span>
-<span class="co">#&gt; 2 map2_dbl_mode(x, y, f)           864µs  914.5µs     1024.   15.72KB     17.2</span>
-<span class="co">#&gt; 3 map2_dbl_storagemode(x, y, f)    845µs 908.36µs      962.   15.72KB     14.8</span>
-<span class="co">#&gt; 4 map2_dbl_asnumeric(x, y, f)      823µs 870.72µs     1119.   15.72KB     19.3</span>
-<span class="co">#&gt; 5 map2_dbl_for(x, y, f)            784µs 855.79µs     1079.    7.86KB     17.3</span></code></pre></div>
+<span class="co">#&gt; 1 map2_dbl_purrr(x, y, f)          993µs   1.05ms      942.    7.86KB     21.6</span>
+<span class="co">#&gt; 2 map2_dbl_mode(x, y, f)           836µs 889.85µs     1090.   15.72KB     19.3</span>
+<span class="co">#&gt; 3 map2_dbl_storagemode(x, y, f)    839µs 877.36µs     1121.   15.72KB     17.1</span>
+<span class="co">#&gt; 4 map2_dbl_asnumeric(x, y, f)      820µs 875.82µs     1114.   15.72KB     19.4</span>
+<span class="co">#&gt; 5 map2_dbl_for(x, y, f)            793µs 848.19µs     1132.    7.86KB     19.5</span></code></pre></div>
 <p><code>map2_dbl_for()</code> is the fastest by a bit. However, one drawback is that if <code>.f()</code> returns a value of the incorrect type, it simply promotes the result vector to that type, and emits no warnings; the returned vector is not guaranteed to be of the specified type. This is not acceptable behavior.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>
@@ -319,6 +318,7 @@
 <span class="co">#&gt; coercion</span>
 <span class="co">#&gt; [1] NA NA</span></code></pre></div>
 <p><code>map2_dbl_asnumeric()</code> has the best balance of speed, understandability, and warning/error behavior when the function returns the wrong type.</p>
+</div>
 </div>
   </div>
 
