@@ -76,7 +76,8 @@ The `pkg:staticimports` tells it to import from staticimports package.
 To import from a different package, use `pkg:mypackage`. It looks in a
 directory of the package named
 [`staticexports`](https://github.com/wch/staticimports/tree/main/inst/staticexports)
-to find the objects.
+to find the objects. To import from a local absolute or relative path,
+you can use something like `@staticimports ../r_utils/`.
 
 The following lines name the objects to import from the source. In this
 case, they are `os_name`, `%||%`, `map`, and `walk`.
