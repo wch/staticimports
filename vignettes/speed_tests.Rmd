@@ -1,0 +1,230 @@
+---
+title: "Speed tests"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Speed tests}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+
+format_percent <- function(x) {
+  round(x * 100)
+}
+```
+
+The functions included in staticimports are meant to be fast. For many of the functions, many implementations have been considered. This document contains performance tests of the various possible implementations.
+
+## purrr-like functions
+
+### `walk`
+
+```{r cache=TRUE}
+walk_purrr <- purrr::walk
+
+walk_lapply <- function(.x, .f, ...) {
+  lapply(.x, .f, ...)
+  NULL
+}
+
+walk_for <- function(.x, .f, ...) {
+  for (i in seq_along(.x)) {
+    .f(.x[[i]], ...)
+  }
+  NULL
+}
+
+x <- 1:100
+f <- function(a) a
+(times <- bench::mark(
+  walk_purrr(x, f),
+  walk_lapply(x, f),
+  walk_for(x, f),
+  check = FALSE
+))
+```
+
+
+```{r echo=FALSE}
+medians <- as.numeric(times$median)
+```
+
+Of the three implementations, `walk_for()` is the fastest. It is about `r format_percent(1 - medians[3]/medians[1])`% faster than `walk_purrr()`, and `r format_percent(1 - medians[2]/medians[1])`% faster than `walk_lapply()`.
+
+Note that `walk_purrr()` returns the input `.x` object, whereas the other two implementations return `NULL`.
+
+
+### `map`
+
+```{r cache=TRUE}
+map_purrr <- purrr::map
+
+map_lapply <- function(.x, .f, ...) {
+  lapply(.x, .f, ...)
+}
+
+map_for <- function(.x, .f, ...) {
+  res <- vector("list", length(.x))
+  for (i in seq_along(.x)) {
+    res[[i]] <- .f(.x[[i]], ...)
+  }
+  names(res) <- names(.x)
+  res
+}
+
+x <- 1:100
+f <- function(a) a
+bench::mark(
+  map_purrr(x, f),
+  lapply(x, f),     # Bare lapply() for comparison
+  map_lapply(x, f),
+  map_for(x, f),
+)
+```
+
+All of these implementations are within a pretty close range. Although `map_for()` is fastest, the margin is small, so we'll just use `map_lapply()` for simplicity.
+
+
+### `map2`
+
+
+```{r cache=TRUE}
+map2_purrr <- purrr::map2
+
+map2_mapply <- function(.x, .y, .f, ...) {
+  mapply(.f, .x, .y, MoreArgs = list(...), SIMPLIFY = FALSE)
+}
+
+map2_for <- function(.x, .y, .f, ...) {
+  res <- vector("list", length(.x))
+  for (i in seq_along(.x)) {
+    res[[i]] <- .f(.x[[i]], .y[[i]], ...)
+  }
+  names(res) <- names(.x)
+  res
+}
+
+x <- 1:100
+y <- x * 1000
+f <- function(a, b) a+b
+bench::mark(
+  map2_purrr(x, y, f),
+  map2_mapply(x, y, f),
+  map2_for(x, y, f),
+)
+
+# With named vector
+names(x) <- as.character(x)
+(times <- bench::mark(
+  map2_purrr(x, y, f),
+  map2_mapply(x, y, f),
+  map2_for(x, y, f),
+))
+```
+
+```{r echo=FALSE}
+medians <- as.numeric(times$median)
+```
+
+`map2_for` is about `r format_percent(1 - medians[3]/medians[2])`% faster than `map2_mapply`, for both named and unnamed inputs, so we'll use `map2_for()`.
+
+
+## `map2_lgl`, `map2_int`, `map2_dbl`, `map2_chr`
+
+The `map2*` functions return an atomic vector of the specified type.
+
+```{r cache=TRUE}
+# Use map2_for implementation from previous section
+map2 <- map2_for
+
+map2_dbl_purrr <- purrr::map2_dbl
+
+map2_dbl_mode <- function(.x, .y, .f, ...) {
+  res <- map2(.x, .y, .f, ...)
+  mode(res) <- "double"
+  res
+}
+
+map2_dbl_storagemode <- function(.x, .y, .f, ...) {
+  res <- map2(.x, .y, .f, ...)
+  storage.mode(res) <- "double"
+  res
+}
+
+# This version is not strictly the same as the others, because it drops names.
+map2_dbl_asnumeric <- function(.x, .y, .f, ...) {
+  res <- as.numeric(map2(.x, .y, .f, ...))
+  names(res) <- names(.x)
+  res
+}
+
+map2_dbl_for <- function(.x, .y, .f, ...) {
+  res <- vector("double", length(.x))
+  for (i in seq_along(.x)) {
+    res[[i]] <- .f(.x[[i]], .y[[i]], ...)
+  }
+  names(res) <- names(.x)
+  res
+}
+
+x <- 1:1000
+y <- x * 10000
+x <- as.list(x)
+y <- as.list(y)
+f <- function(a, b) a+b
+
+# This is what the output should look like
+map2_dbl_purrr(1:3, 101:103, f)
+
+bench::mark(
+  map2_dbl_purrr(x, y, f),
+  map2_dbl_mode(x, y, f),
+  map2_dbl_storagemode(x, y, f),
+  map2_dbl_asnumeric(x, y, f),
+  map2_dbl_for(x, y, f),
+)
+
+# Same test, with names
+names(x) <- as.character(x)
+(times <- bench::mark(
+  map2_dbl_purrr(x, y, f),
+  map2_dbl_mode(x, y, f),
+  map2_dbl_storagemode(x, y, f),
+  map2_dbl_asnumeric(x, y, f),
+  map2_dbl_for(x, y, f),
+))
+```
+
+```{r echo=FALSE}
+medians <- as.numeric(times$median)
+```
+
+`map2_dbl_for()` is the fastest by a bit. However, one drawback is that if `.f()` returns a value of the incorrect type, it simply promotes the result vector to that type, and emits no warnings; the returned vector is not guaranteed to be of the specified type. This is not acceptable behavior.
+
+```{r}
+x <- c(1, 2)
+map2_dbl_for(x, x, function(a, b) "test")
+```
+
+The ideal behavior in this situation is for the function to throw an error when an incorrect type is returned. This is what `map2_dbl_purrr()` does.
+
+```{r error=TRUE}
+map2_dbl_purrr(x, x, function(a, b) "test")
+```
+
+The other three versions, `map2_dbl_mode()`, `map2_dbl_storagemode()`, and `map2_dbl_asnumeric()` emit warnings, which isn't ideal but it is acceptable.
+
+```{r error=TRUE}
+map2_dbl_mode(x, x, function(a, b) "test")
+map2_dbl_storagemode(x, x, function(a, b) "test")
+map2_dbl_asnumeric(x, x, function(a, b) "test")
+```
+
+`map2_dbl_asnumeric()` has the best balance of speed, understandability, and warning/error behavior when the function returns the wrong type.
