@@ -38,6 +38,11 @@ jobs:
           install.packages("pkgdown", type = "binary")
         shell: Rscript {0}
 
+      - name: Install packages used in vignettes
+        run: |
+          remotes::install_cran("purrr")
+        shell: Rscript {0}
+
       - name: Install package
         run: R CMD INSTALL .
 
