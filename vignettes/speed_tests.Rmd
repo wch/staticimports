@@ -136,7 +136,7 @@ medians <- as.numeric(times$median)
 `map2_for` is about `r format_percent(1 - medians[3]/medians[2])`% faster than `map2_mapply`, for both named and unnamed inputs, so we'll use `map2_for()`.
 
 
-## `map2_lgl`, `map2_int`, `map2_dbl`, `map2_chr`
+### `map2_lgl`, `map2_int`, `map2_dbl`, `map2_chr`
 
 The `map2*` functions return an atomic vector of the specified type.
 
