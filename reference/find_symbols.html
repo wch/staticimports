@@ -140,139 +140,142 @@
     <p>A character vector of the symbols used in the object.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># Find all symbols used in the lm function</span>
-<span class='fu'>find_symbols</span><span class='op'>(</span><span class='fu'>utils</span><span class='fu'>::</span><span class='va'><a href='https://rdrr.io/r/utils/install.packages.html'>install.packages</a></span><span class='op'>)</span>
-</div><div class='output co'>#&gt;   [1] "::"                                 ":::"                               
-#&gt;   [3] "!"                                  "!="                                
-#&gt;   [5] "..."                                ".find_install_order"               
-#&gt;   [7] ".install.macbinary"                 ".install.winbinary"                
-#&gt;   [9] ".libPaths"                          ".Library"                          
-#&gt;  [11] ".make_dependency_list"              ".Platform"                         
-#&gt;  [13] ".R_LIBS"                            ".standard_regexps"                 
-#&gt;  [15] ".TkUp"                              "("                                 
-#&gt;  [17] "["                                  "[["                                
-#&gt;  [19] "{"                                  "&amp;"                                 
-#&gt;  [21] "&amp;&amp;"                                 "%in%"                              
-#&gt;  [23] "&lt;"                                  "&lt;-"                                
-#&gt;  [25] "=="                                 "&gt;"                                 
-#&gt;  [27] "|"                                  "||"                                
-#&gt;  [29] "$"                                  "action"                            
-#&gt;  [31] "aDL"                                "all"                               
-#&gt;  [33] "ans"                                "any"                               
-#&gt;  [35] "args"                               "args0"                             
-#&gt;  [37] "as.numeric_version"                 "askYesNo"                          
-#&gt;  [39] "av"                                 "av1"                               
-#&gt;  [41] "av2"                                "available"                         
-#&gt;  [43] "available_packages_filters_db"      "available_packages_filters_default"
-#&gt;  [45] "available.packages"                 "basename"                          
-#&gt;  [47] "bins"                               "binvers"                           
-#&gt;  [49] "c"                                  "capabilities"                      
-#&gt;  [51] "cat"                                "cbind"                             
-#&gt;  [53] "character"                          "clean"                             
-#&gt;  [55] "close"                              "cmd"                               
-#&gt;  [57] "cmd0"                               "colnames"                          
-#&gt;  [59] "config"                             "configure.args"                    
-#&gt;  [61] "configure.vars"                     "conn"                              
-#&gt;  [63] "contrib.url"                        "contriburl"                        
-#&gt;  [65] "contriburl2"                        "cwd"                               
-#&gt;  [67] "data.frame"                         "dependencies"                      
-#&gt;  [69] "deps"                               "destdir"                           
-#&gt;  [71] "destfile"                           "df"                                
-#&gt;  [73] "dir"                                "dir.create"                        
-#&gt;  [75] "dir.exists"                         "dirname"                           
-#&gt;  [77] "dirs"                               "DL"                                
-#&gt;  [79] "download.file"                      "download.packages"                 
-#&gt;  [81] "e"                                  "endsWith"                          
-#&gt;  [83] "env"                                "f"                                 
-#&gt;  [85] "f2"                                 "failed"                            
-#&gt;  [87] "fil"                                "file"                              
-#&gt;  [89] "file.access"                        "file.copy"                         
-#&gt;  [91] "file.exists"                        "file.path"                         
-#&gt;  [93] "file.remove"                        "files"                             
-#&gt;  [95] "filters"                            "flush.console"                     
-#&gt;  [97] "fn"                                 "for"                               
-#&gt;  [99] "found"                              "foundpkgs"                         
-#&gt; [101] "function"                           "get_install_opts"                  
-#&gt; [103] "get_package_name"                   "get_timeout"                       
-#&gt; [105] "getConfigureArgs"                   "getConfigureVars"                  
-#&gt; [107] "getDependencies"                    "getDeps"                           
-#&gt; [109] "getOption"                          "gettext"                           
-#&gt; [111] "gettextf"                           "getwd"                             
-#&gt; [113] "grep"                               "grepl"                             
-#&gt; [115] "gsub"                               "GUI"                               
-#&gt; [117] "hasArchs"                           "hasSrc"                            
-#&gt; [119] "have_spaces"                        "i"                                 
-#&gt; [121] "if"                                 "inherits"                          
-#&gt; [123] "INSTALL_opts"                       "interactive"                       
-#&gt; [125] "inuse"                              "invisible"                         
-#&gt; [127] "is.character"                       "is.list"                           
-#&gt; [129] "is.logical"                         "is.na"                             
-#&gt; [131] "is.null"                            "isTRUE"                            
-#&gt; [133] "keep_outputs"                       "later"                             
-#&gt; [135] "length"                             "lib"                               
-#&gt; [137] "libpath"                            "libs_only"                         
-#&gt; [139] "libs_used"                          "list"                              
-#&gt; [141] "make.packages.html"                 "match"                             
-#&gt; [143] "message"                            "method"                            
-#&gt; [145] "mfile"                              "missing"                           
-#&gt; [147] "msg"                                "na"                                
-#&gt; [149] "names"                              "Ncpus"                             
-#&gt; [151] "needsCmp"                           "next"                              
-#&gt; [153] "ngettext"                           "nonlocalrepos"                     
-#&gt; [155] "normalizePath"                      "nrow"                              
-#&gt; [157] "NROW"                               "nzchar"                            
-#&gt; [159] "ok"                                 "OK"                                
-#&gt; [161] "oldrlibs"                           "on.exit"                           
-#&gt; [163] "OS.type"                            "out"                               
-#&gt; [165] "outdir"                             "outfile"                           
-#&gt; [167] "outfiles"                           "output"                            
-#&gt; [169] "p"                                  "p0"                                
-#&gt; [171] "paste"                              "paste0"                            
-#&gt; [173] "path.expand"                        "path.sep"                          
-#&gt; [175] "pkg"                                "pkgnames"                          
-#&gt; [177] "pkgs"                               "pkgType"                           
-#&gt; [179] "platform"                           "print"                             
-#&gt; [181] "quiet"                              "R.home"                            
-#&gt; [183] "R.version"                          "readLines"                         
-#&gt; [185] "repos"                              "res"                               
-#&gt; [187] "return"                             "row.names"                         
-#&gt; [189] "rownames"                           "s2"                                
-#&gt; [191] "search"                             "select.list"                       
-#&gt; [193] "seq_len"                            "setdiff"                           
-#&gt; [195] "setwd"                              "shortPathName"                     
-#&gt; [197] "shQuote"                            "sort"                              
-#&gt; [199] "sort.list"                          "sprintf"                           
-#&gt; [201] "sQuote"                             "srcOnly"                           
-#&gt; [203] "srcpkgs"                            "srcvers"                           
-#&gt; [205] "startsWith"                         "status"                            
-#&gt; [207] "stderr"                             "stop"                              
-#&gt; [209] "strsplit"                           "strwrap"                           
-#&gt; [211] "sub"                                "sum"                               
-#&gt; [213] "suppressWarnings"                   "Sys.getenv"                        
-#&gt; [215] "Sys.getpid"                         "Sys.setenv"                        
-#&gt; [217] "Sys.which"                          "system"                            
-#&gt; [219] "system2"                            "tcltk"                             
-#&gt; [221] "tempdir"                            "this"                              
-#&gt; [223] "timeout"                            "tlim"                              
-#&gt; [225] "tlim_cmd"                           "tmpd"                              
-#&gt; [227] "tmpd2"                              "tools"                             
-#&gt; [229] "try"                                "tryCatch"                          
-#&gt; [231] "tss"                                "type"                              
-#&gt; [233] "type2"                              "unique"                            
-#&gt; [235] "unlink"                             "unlist"                            
-#&gt; [237] "update"                             "upkgs"                             
-#&gt; [239] "urls"                               "userdir"                           
-#&gt; [241] "valid_package_version"              "verbose"                           
-#&gt; [243] "warning"                            "web"                               
-#&gt; [245] "writeLines"                        </div><div class='input'>
-<span class='co'># Does not find names of arguments</span>
-<span class='fu'>find_symbols</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/substitute.html'>quote</a></span><span class='op'>(</span><span class='fu'>foo</span><span class='op'>(</span>a <span class='op'>=</span> <span class='va'>A</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "A"   "foo"</div><div class='input'><span class='co'>#&gt; [1] "A"   "foo"</span>
-
-<span class='fu'>find_symbols</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/substitute.html'>quote</a></span><span class='op'>(</span><span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span> <span class='op'>=</span> <span class='va'>X</span><span class='op'>)</span> <span class='cn'>NULL</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "function" "X"       </div><div class='input'><span class='co'>#&gt; [1] "function" "X"</span>
-
-</div></pre>
+    <pre class="examples"><span class='r-in'><span class='co'># Find all symbols used in the lm function</span></span>
+<span class='r-in'><span class='fu'>find_symbols</span><span class='op'>(</span><span class='fu'>utils</span><span class='fu'>::</span><span class='va'><a href='https://rdrr.io/r/utils/install.packages.html'>install.packages</a></span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   [1] "::"                                 ":::"                               </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   [3] "!"                                  "!="                                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   [5] "..."                                ".find_install_order"               </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   [7] ".install.macbinary"                 ".install.winbinary"                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   [9] ".libPaths"                          ".Library"                          </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [11] ".make_dependency_list"              ".Platform"                         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [13] ".R_LIBS"                            ".standard_regexps"                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [15] ".TkUp"                              "("                                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [17] "["                                  "[["                                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [19] "{"                                  "&amp;"                                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [21] "&amp;&amp;"                                 "%in%"                              </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [23] "&lt;"                                  "&lt;-"                                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [25] "=="                                 "&gt;"                                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [27] "|"                                  "||"                                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [29] "$"                                  "action"                            </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [31] "aDL"                                "all"                               </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [33] "ans"                                "any"                               </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [35] "args"                               "args0"                             </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [37] "as.numeric_version"                 "askYesNo"                          </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [39] "av"                                 "av1"                               </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [41] "av2"                                "available"                         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [43] "available_packages_filters_db"      "available_packages_filters_default"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [45] "available.packages"                 "basename"                          </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [47] "bins"                               "binvers"                           </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [49] "c"                                  "capabilities"                      </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [51] "cat"                                "cbind"                             </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [53] "character"                          "clean"                             </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [55] "close"                              "cmd"                               </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [57] "cmd0"                               "colnames"                          </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [59] "config"                             "configure.args"                    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [61] "configure.vars"                     "conn"                              </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [63] "contrib.url"                        "contriburl"                        </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [65] "contriburl2"                        "cwd"                               </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [67] "data.frame"                         "dependencies"                      </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [69] "deps"                               "destdir"                           </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [71] "destfile"                           "df"                                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [73] "dir"                                "dir.create"                        </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [75] "dir.exists"                         "dirname"                           </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [77] "dirs"                               "DL"                                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [79] "download.file"                      "download.packages"                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [81] "e"                                  "endsWith"                          </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [83] "env"                                "f"                                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [85] "f2"                                 "failed"                            </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [87] "fil"                                "file"                              </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [89] "file.access"                        "file.copy"                         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [91] "file.exists"                        "file.path"                         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [93] "files"                              "filters"                           </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [95] "flush.console"                      "fn"                                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [97] "for"                                "found"                             </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [99] "foundpkgs"                          "function"                          </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [101] "get_install_opts"                   "get_package_name"                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [103] "get_timeout"                        "getConfigureArgs"                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [105] "getConfigureVars"                   "getDependencies"                   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [107] "getDeps"                            "getOption"                         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [109] "gettext"                            "gettextf"                          </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [111] "getwd"                              "grep"                              </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [113] "grepl"                              "gsub"                              </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [115] "GUI"                                "hasArchs"                          </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [117] "hasSrc"                             "have_spaces"                       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [119] "i"                                  "if"                                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [121] "inherits"                           "INSTALL_opts"                      </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [123] "interactive"                        "inuse"                             </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [125] "invisible"                          "is.character"                      </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [127] "is.list"                            "is.logical"                        </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [129] "is.na"                              "is.null"                           </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [131] "isTRUE"                             "keep_outputs"                      </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [133] "later"                              "length"                            </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [135] "lib"                                "libpath"                           </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [137] "libs_only"                          "libs_used"                         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [139] "list"                               "make.packages.html"                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [141] "match"                              "message"                           </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [143] "method"                             "mfile"                             </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [145] "missing"                            "msg"                               </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [147] "na"                                 "names"                             </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [149] "Ncpus"                              "needsCmp"                          </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [151] "next"                               "ngettext"                          </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [153] "nonlocalrepos"                      "normalizePath"                     </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [155] "nrow"                               "NROW"                              </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [157] "nzchar"                             "ok"                                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [159] "OK"                                 "oldrlibs"                          </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [161] "on.exit"                            "OS.type"                           </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [163] "out"                                "outdir"                            </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [165] "outfile"                            "outfiles"                          </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [167] "output"                             "p"                                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [169] "p0"                                 "paste"                             </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [171] "paste0"                             "path.expand"                       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [173] "path.sep"                           "pkg"                               </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [175] "pkgnames"                           "pkgs"                              </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [177] "pkgType"                            "platform"                          </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [179] "print"                              "quiet"                             </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [181] "R.home"                             "R.version"                         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [183] "readLines"                          "repos"                             </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [185] "res"                                "return"                            </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [187] "row.names"                          "rownames"                          </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [189] "s2"                                 "search"                            </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [191] "select.list"                        "seq_len"                           </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [193] "setdiff"                            "setwd"                             </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [195] "shortPathName"                      "shQuote"                           </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [197] "sort"                               "sort.list"                         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [199] "sprintf"                            "sQuote"                            </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [201] "srcOnly"                            "srcpkgs"                           </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [203] "srcvers"                            "startsWith"                        </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [205] "status"                             "stderr"                            </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [207] "stop"                               "strsplit"                          </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [209] "strwrap"                            "sub"                               </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [211] "sum"                                "suppressWarnings"                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [213] "Sys.getenv"                         "Sys.getpid"                        </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [215] "Sys.glob"                           "Sys.setenv"                        </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [217] "Sys.which"                          "system"                            </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [219] "system2"                            "tcltk"                             </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [221] "tempdir"                            "tempfile"                          </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [223] "this"                               "timeout"                           </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [225] "tlim"                               "tlim_cmd"                          </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [227] "tmpd"                               "tmpd2"                             </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [229] "tools"                              "try"                               </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [231] "tryCatch"                           "tss"                               </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [233] "type"                               "type2"                             </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [235] "unique"                             "unlink"                            </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [237] "unlist"                             "update"                            </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [239] "upkgs"                              "urls"                              </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [241] "userdir"                            "valid_package_version"             </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [243] "verbose"                            "warning"                           </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [245] "web"                                "writeLines"                        </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Does not find names of arguments</span></span>
+<span class='r-in'><span class='fu'>find_symbols</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/substitute.html'>quote</a></span><span class='op'>(</span><span class='fu'>foo</span><span class='op'>(</span>a <span class='op'>=</span> <span class='va'>A</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "A"   "foo"</span>
+<span class='r-in'><span class='co'>#&gt; [1] "A"   "foo"</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>find_symbols</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/substitute.html'>quote</a></span><span class='op'>(</span><span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span> <span class='op'>=</span> <span class='va'>X</span><span class='op'>)</span> <span class='cn'>NULL</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "function" "X"       </span>
+<span class='r-in'><span class='co'>#&gt; [1] "function" "X"</span></span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
