@@ -100,8 +100,10 @@ import_objs <- function(
   } else {
     env <- new.env()
     files <- dir(source, pattern = "\\.[r|R]$", full.names = TRUE)
+    source_text <- list() # The contents of each file
     for (file in files) {
       source(file, local = env, keep.source = TRUE)
+      source_text[[file]] <- readLines(file)
     }
   }
 
@@ -111,21 +113,7 @@ import_objs <- function(
 
   all_dep_objs <- mget(all_dep_names, env)
 
-  # Get the source text for a function.
-  get_src_text <- function(obj, name) {
-    srcref <- attr(obj, "srcref")
-    if (is.null(srcref)) {
-      if (is.function(obj)) {
-        message(
-          "Note: can't get srcref for `", name,
-          "`. Package should be installed with source refs. Using `deparse()` instead."
-        )
-      }
-      return(deparse(obj))
-      # return("NULL  # Note: no srcref was available for this object")
-    }
-    as.character(srcref)
-  }
+  all_source_text <- process_source_texts(source_text)
 
   # Given a list of functions (with source refs), write the source to a file.
   write_deps <- function(fns, outfile) {
@@ -148,11 +136,7 @@ import_objs <- function(
       fn_name <- names(fns)[i]
       cat0(
         "\n",
-        # Ensure that names with weird characters, like %||%, get backticks,
-        # like `%||%`.
-        utils::capture.output(print(as.symbol(fn_name))),
-        " <- ",
-        paste0(get_src_text(fns[[i]], fn_name), collapse = "\n"),
+        paste0(all_source_text[[fn_name]], collapse = "\n"),
         "\n",
         file = outfile,
         append = TRUE
@@ -162,7 +146,6 @@ import_objs <- function(
 
   write_deps(all_dep_objs, outfile)
 }
-
 
 
 #' Find any static imports in the comments of the R/ directory
@@ -275,4 +258,84 @@ find_staticimports <- function(dir = here::here("R/")) {
   })
 
   imports
+}
+
+
+
+
+# Given a list of char vectors (each should be the output of `readLines()`),
+# process the text and return a named list of objects.
+process_source_texts <- function(source_texts) {
+  results <- lapply(source_texts, process_source_text_one)
+  Reduce(c, results)
+}
+
+
+# Given a char vector of lines (from readLines()), process the text and return a
+# named list of objects.
+process_source_text_one <- function(text) {
+  # There are three states for this state machine:
+  # - "SCANNING": This means we're looking for comments or object definitions.
+  # - "OBJECT_DEFINITION": We're inside an object definition (usually a
+  #     function).
+  # - "LEADING_COMMENT": We're in a comment that (probably) precedes an object
+  #     definition.
+  chunks <- list()
+
+  state <- "SCANNING"
+  current_chunk <- character(0)
+  current_chunk_name <- NULL
+  for (line in text) {
+    if (state == "SCANNING") {
+      if (grepl("^\\S+ *<-", line)) {
+        # Lines that start with "foo <-" tell us that the object definition
+        # starts here.
+        state <- "OBJECT_DEFINITION"
+        current_chunk[length(current_chunk) + 1] <- line
+        current_chunk_name <- sub("^(\\S+).*", "\\1", line)
+
+        # Remove backticks, so that strings like "`%||%`" are converted to "%||%"
+        if (grepl("^`\\S+`$", current_chunk_name)) {
+          current_chunk_name <- sub("^`(\\S+)`$", "\\1", current_chunk_name)
+        }
+
+      } else if (grepl("^#", line)) {
+        state <- "LEADING_COMMENT"
+        current_chunk[length(current_chunk) + 1] <- line
+      }
+
+    } else if (state == "OBJECT_DEFINITION") {
+      current_chunk[length(current_chunk) + 1] <- line
+      if (grepl("^\\S", line)) {
+        # If the line starts with anything _other_ than whitespace, then we know
+        # we've reached the end of the object definition.
+        state <- "SCANNING"
+        chunks[[current_chunk_name]] <- current_chunk
+        current_chunk <- character(0)
+        current_chunk_name <- NULL
+      }
+
+    } else if (state == "LEADING_COMMENT") {
+      if (grepl("^\\S+ *<-", line)) {
+        # Lines that start with "foo <-" tell us that the object definition
+        # starts here.
+        state <- "OBJECT_DEFINITION"
+        current_chunk[length(current_chunk) + 1] <- line
+        current_chunk_name <- sub("^(\\S+).*", "\\1", line)
+
+      } else if (grepl("^#", line)) {
+        # Stay in current state.
+        current_chunk[length(current_chunk) + 1] <- line
+
+      } else {
+        # We've hit the end of a comment block but no definition here. Just
+        # discard the block and go back to scanning mode.
+        state <- "SCANNING"
+        current_chunk <- character(0)
+
+      }
+    }
+  }
+
+  chunks
 }
