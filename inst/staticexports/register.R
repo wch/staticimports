@@ -24,8 +24,7 @@ register_s3_method <- function(pkg, generic, class, fun = NULL) {
   )
 }
 
-# N.B. Requires importing of is_installed() as well!
-register_upgrade_message <- function(pkg, version) {
+register_upgrade_message <- function(pkg, version, error = FALSE) {
 
   msg <- sprintf(
     "This version of '%s' is designed to work with '%s' >= %s.
@@ -34,8 +33,10 @@ register_upgrade_message <- function(pkg, version) {
     pkg, version, pkg
   )
 
+  cond <- if (error) stop else packageStartupMessage
+
   if (pkg %in% loadedNamespaces() && !is_installed(pkg, version)) {
-    packageStartupMessage(msg)
+    cond(msg)
   }
 
   # Always register hook in case pkg is loaded at some
@@ -44,7 +45,7 @@ register_upgrade_message <- function(pkg, version) {
   setHook(
     packageEvent(pkg, "onLoad"),
     function(...) {
-      if (!is_installed(pkg, version)) packageStartupMessage(msg)
+      if (!is_installed(pkg, version)) cond(msg)
     }
   )
 }
