@@ -134,9 +134,14 @@ import_objs <- function(
 
     for (i in seq_along(fns)) {
       fn_name <- names(fns)[i]
+      fn_txt <- all_source_text[[fn_name]]
+      if (is.null(fn_txt)) {
+        stop("Source for `", fn_name, "` not found.")
+      }
+
       cat0(
         "\n",
-        paste0(all_source_text[[fn_name]], collapse = "\n"),
+        paste0(fn_txt, collapse = "\n"),
         "\n",
         file = outfile,
         append = TRUE
@@ -267,7 +272,7 @@ find_staticimports <- function(dir = here::here("R/")) {
 # process the text and return a named list of objects.
 process_source_texts <- function(source_texts) {
   results <- lapply(source_texts, process_source_text_one)
-  Reduce(c, results)
+  do.call(c, unname(results))
 }
 
 
