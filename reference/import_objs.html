@@ -174,15 +174,23 @@ imported from.</p></td>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> is_linux   &lt;- function() Sys.info()[['sysname']] == 'Linux'</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> os_name &lt;- function() {</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> is_mac     &lt;- function() Sys.info()[['sysname']] == 'Darwin'</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> is_windows &lt;- function() .Platform$OS.type == "windows"</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> is_mac     &lt;- function() Sys.info()[['sysname']] == 'Darwin'</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> os_name &lt;- function() {</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   if (is_windows()) {</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     "win"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   } else if (is_mac()) {</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     "mac"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   } else if (is_linux()) {</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     "linux"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   } else if (.Platform$OS.type == "unix") {</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     "unix"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   } else {</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     "unknown"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   }</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> }</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> walk &lt;- function(.x, .f, ...) {</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>   for (i in seq_along(.x)) {</span>
