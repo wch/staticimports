@@ -89,6 +89,7 @@ system_file_cached <- local({
 })
 
 # Borrowed from pkgload:::dev_meta, with some modifications.
+# Returns TRUE if `pkg` was loaded with `devtools::load_all()`.
 devtools_loaded <- function(pkg) {
   ns <- .getNamespace(pkg)
   if (is.null(ns) || is.null(ns$.__DEVTOOLS__)) {
