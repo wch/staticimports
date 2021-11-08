@@ -21,10 +21,12 @@ get_package_version <- function(pkg) {
 }
 
 
-# Borrowed from pkgload::shim_system.file, with some modifications.
-# Most notably, if the package isn't loaded via devtools, the package directory
-# lookup is cached. Also, to keep the implementation simple, it doesn't support
-# specification of lib.loc or mustWork
+# Borrowed from pkgload::shim_system.file, with some modifications. This behaves
+# like `system.file()`, except that (1) for packages loaded with
+# `devtools::load_all()`, it will return the path to files in the package's
+# inst/ directory, and (2) for other packages, the directory lookup is cached.
+# Also, to keep the implementation simple, it doesn't support specification of
+# lib.loc or mustWork.
 system_file <- function(..., package = "base") {
   if (!devtools_loaded(package))  {
     return(system_file_cached(..., package = package))
