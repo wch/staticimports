@@ -3,7 +3,7 @@ is_loaded <- function(x) {
 }
 
 is_installed <- function(pkg, version = NULL) {
-  installed <- isNamespaceLoaded(pkg) || nzchar(system.file(package = pkg))
+  installed <- isNamespaceLoaded(pkg) || nzchar(system_file_cached(package = pkg))
   if (is.null(version)) {
     return(installed)
   }
