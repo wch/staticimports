@@ -28,8 +28,8 @@ str_trim <- function(text, side = "both") {
   text
 }
 
-str_detect <- function(text, pattern, fixed = FALSE) {
-  grepl(pattern = pattern, x = text, perl = !fixed, fixed = fixed)
+str_detect <- function(text, pattern) {
+  grepl(pattern = pattern, x = text)
 }
 
 str_extract <- function(text, pattern) {
