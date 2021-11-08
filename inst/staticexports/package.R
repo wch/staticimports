@@ -70,6 +70,11 @@ system_file <- function(..., package = "base") {
   normalizePath(files, winslash = "/")
 }
 
+# A wrapper for `system.file()`, which caches the results, because
+# `system.file()` can be slow. Note that because of caching, if
+# `system_file_cached()` is called on a package that isn't installed, then the
+# package is installed, and then `system_file_cached()` is called again, it will
+# still return "".
 system_file_cached <- local({
   pkg_dir_cache <- character()
 
