@@ -121,3 +121,25 @@ imap_dbl <- function(.x, .f, ...) {
 imap_chr <- function(.x, .f, ...) {
   map2_chr(.x, vec_index(.x), .f, ...)
 }
+
+keep <- function(.x, .f, ...) {
+  if (is.logical(.f)) {
+    stopifnot(length(.f) == length(.x))
+    .x[.f]
+  } else {
+    .x[map_lgl(.x, .f, ...)]
+  }
+}
+
+discard <- function(.x, .f, ...) {
+  if (is.logical(.f)) {
+    stopifnot(length(.f) == length(.x))
+    .x[!.f]
+  } else {
+    .x[!map_lgl(.x, .f, ...)]
+  }
+}
+
+compact <- function(.x) {
+  Filter(length, .x)
+}
