@@ -54,7 +54,7 @@ import <- function(
 {
   imports <- find_staticimports(dir)
 
-  if (is.character(outfile)) {
+  if (is.character(outfile) && file.exists(outfile)) {
     file.remove(outfile)
   }
   for (import in imports) {
