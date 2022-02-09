@@ -127,12 +127,7 @@ keep <- function(.x, .f, ...) {
 }
 
 discard <- function(.x, .f, ...) {
-  if (is.logical(.f)) {
-    stopifnot(length(.f) == length(.x))
-    .x[!.f]
-  } else {
-    .x[!map_lgl(.x, .f, ...)]
-  }
+  .x[!vapply(.x, .f, ..., FUN.VALUE = NA)]
 }
 
 compact <- function(.x) {
