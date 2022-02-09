@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,18 +33,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">staticimports</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.0.9000</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -83,23 +79,23 @@
     
     
 <p>The functions included in staticimports are meant to be fast. For many of the functions, many implementations have been considered. This document contains performance tests of the various possible implementations.</p>
-<div id="purrr-like-functions" class="section level2">
-<h2 class="hasAnchor">
-<a href="#purrr-like-functions" class="anchor"></a>purrr-like functions</h2>
-<div id="walk" class="section level3">
-<h3 class="hasAnchor">
-<a href="#walk" class="anchor"></a><code>walk</code>
+<div class="section level2">
+<h2 id="purrr-like-functions">purrr-like functions<a class="anchor" aria-label="anchor" href="#purrr-like-functions"></a>
+</h2>
+<div class="section level3">
+<h3 id="walk">
+<code>walk</code><a class="anchor" aria-label="anchor" href="#walk"></a>
 </h3>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">walk_purrr</span> <span class="op">&lt;-</span> <span class="fu">purrr</span><span class="fu">::</span><span class="va"><a href="https://purrr.tidyverse.org/reference/map.html">walk</a></span>
+<code class="sourceCode R"><span class="va">walk_purrr</span> <span class="op">&lt;-</span> <span class="fu">purrr</span><span class="fu">::</span><span class="va"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">walk</a></span>
 
 <span class="va">walk_lapply</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">.x</span>, <span class="va">.f</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">.x</span>, <span class="va">.f</span>, <span class="va">...</span><span class="op">)</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">.x</span>, <span class="va">.f</span>, <span class="va">...</span><span class="op">)</span>
   <span class="cn">NULL</span>
 <span class="op">}</span>
 
 <span class="va">walk_for</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">.x</span>, <span class="va">.f</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span>
-  <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_along</a></span><span class="op">(</span><span class="va">.x</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+  <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_along</a></span><span class="op">(</span><span class="va">.x</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
     <span class="fu">.f</span><span class="op">(</span><span class="va">.x</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span>, <span class="va">...</span><span class="op">)</span>
   <span class="op">}</span>
   <span class="cn">NULL</span>
@@ -107,193 +103,193 @@
 
 <span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">100</span>
 <span class="va">f</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">a</span><span class="op">)</span> <span class="va">a</span>
-<span class="op">(</span><span class="va">times</span> <span class="op">&lt;-</span> <span class="fu">bench</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/bench/man/mark.html">mark</a></span><span class="op">(</span>
+<span class="op">(</span><span class="va">times</span> <span class="op">&lt;-</span> <span class="fu">bench</span><span class="fu">::</span><span class="fu"><a href="http://bench.r-lib.org/reference/mark.html" class="external-link">mark</a></span><span class="op">(</span>
   <span class="fu">walk_purrr</span><span class="op">(</span><span class="va">x</span>, <span class="va">f</span><span class="op">)</span>,
   <span class="fu">walk_lapply</span><span class="op">(</span><span class="va">x</span>, <span class="va">f</span><span class="op">)</span>,
   <span class="fu">walk_for</span><span class="op">(</span><span class="va">x</span>, <span class="va">f</span><span class="op">)</span>,
   check <span class="op">=</span> <span class="cn">FALSE</span>
 <span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 3 × 6</span>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 6</span></span>
 <span class="co">#&gt;   expression             min   median `itr/sec` mem_alloc `gc/sec`</span>
-<span class="co">#&gt;   &lt;bch:expr&gt;        &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 walk_purrr(x, f)    79.6µs   87.8µs     6448.   512.6KB     8.25</span>
-<span class="co">#&gt; 2 walk_lapply(x, f)   63.6µs   74.8µs    10575.      848B    14.9 </span>
-<span class="co">#&gt; 3 walk_for(x, f)      51.3µs   58.2µs    13456.    3.52MB    12.8</span></code></pre></div>
-<p>Of the three implementations, <code>walk_for()</code> is the fastest. It is about 34% faster than <code>walk_purrr()</code>, and 15% faster than <code>walk_lapply()</code>.</p>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;bch:expr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;bch:tm&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:tm&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:byt&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> walk_purrr(x, f)    84.1µs   91.6µs     <span style="text-decoration: underline;">9</span>731.  483.98KB     10.3</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> walk_lapply(x, f)   63.8µs   68.8µs     <span style="text-decoration: underline;">8</span>409.      848B     10.9</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> walk_for(x, f)      49.5µs   57.1µs    <span style="text-decoration: underline;">15</span>927.    3.52MB     12.7</span></code></pre></div>
+<p>Of the three implementations, <code>walk_for()</code> is the fastest. It is about 38% faster than <code>walk_purrr()</code>, and 25% faster than <code>walk_lapply()</code>.</p>
 <p>Note that <code>walk_purrr()</code> returns the input <code>.x</code> object, whereas the other two implementations return <code>NULL</code>.</p>
 </div>
-<div id="map" class="section level3">
-<h3 class="hasAnchor">
-<a href="#map" class="anchor"></a><code>map</code>
+<div class="section level3">
+<h3 id="map">
+<code>map</code><a class="anchor" aria-label="anchor" href="#map"></a>
 </h3>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">map_purrr</span> <span class="op">&lt;-</span> <span class="fu">purrr</span><span class="fu">::</span><span class="va"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span>
+<code class="sourceCode R"><span class="va">map_purrr</span> <span class="op">&lt;-</span> <span class="fu">purrr</span><span class="fu">::</span><span class="va"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map</a></span>
 
 <span class="va">map_lapply</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">.x</span>, <span class="va">.f</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">.x</span>, <span class="va">.f</span>, <span class="va">...</span><span class="op">)</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">.x</span>, <span class="va">.f</span>, <span class="va">...</span><span class="op">)</span>
 <span class="op">}</span>
 
 <span class="va">map_for</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">.x</span>, <span class="va">.f</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span>
-  <span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/vector.html">vector</a></span><span class="op">(</span><span class="st">"list"</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">.x</span><span class="op">)</span><span class="op">)</span>
-  <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_along</a></span><span class="op">(</span><span class="va">.x</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+  <span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/vector.html" class="external-link">vector</a></span><span class="op">(</span><span class="st">"list"</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">.x</span><span class="op">)</span><span class="op">)</span>
+  <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_along</a></span><span class="op">(</span><span class="va">.x</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
     <span class="va">res</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu">.f</span><span class="op">(</span><span class="va">.x</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span>, <span class="va">...</span><span class="op">)</span>
   <span class="op">}</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">.x</span><span class="op">)</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">.x</span><span class="op">)</span>
   <span class="va">res</span>
 <span class="op">}</span>
 
 <span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">100</span>
 <span class="va">f</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">a</span><span class="op">)</span> <span class="va">a</span>
-<span class="fu">bench</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/bench/man/mark.html">mark</a></span><span class="op">(</span>
+<span class="fu">bench</span><span class="fu">::</span><span class="fu"><a href="http://bench.r-lib.org/reference/mark.html" class="external-link">mark</a></span><span class="op">(</span>
   <span class="fu">map_purrr</span><span class="op">(</span><span class="va">x</span>, <span class="va">f</span><span class="op">)</span>,
-  <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">f</span><span class="op">)</span>,     <span class="co"># Bare lapply() for comparison</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">f</span><span class="op">)</span>,     <span class="co"># Bare lapply() for comparison</span>
   <span class="fu">map_lapply</span><span class="op">(</span><span class="va">x</span>, <span class="va">f</span><span class="op">)</span>,
   <span class="fu">map_for</span><span class="op">(</span><span class="va">x</span>, <span class="va">f</span><span class="op">)</span>,
 <span class="op">)</span>
-<span class="co">#&gt; # A tibble: 4 × 6</span>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 4 × 6</span></span>
 <span class="co">#&gt;   expression            min   median `itr/sec` mem_alloc `gc/sec`</span>
-<span class="co">#&gt;   &lt;bch:expr&gt;       &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 map_purrr(x, f)    78.5µs   86.3µs     9339.    3.69KB     14.8</span>
-<span class="co">#&gt; 2 lapply(x, f)       62.2µs   68.2µs    12160.      848B     17.4</span>
-<span class="co">#&gt; 3 map_lapply(x, f)   63.3µs   69.6µs    11658.      848B     17.0</span>
-<span class="co">#&gt; 4 map_for(x, f)      62.6µs   68.8µs    11359.  362.89KB     12.6</span></code></pre></div>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;bch:expr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;bch:tm&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:tm&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:byt&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> map_purrr(x, f)    79.9µs   91.2µs    <span style="text-decoration: underline;">10</span>565.    3.69KB     14.7</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> lapply(x, f)       58.5µs   66.9µs    <span style="text-decoration: underline;">13</span>340.      848B     17.0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> map_lapply(x, f)   62.9µs   68.6µs    <span style="text-decoration: underline;">13</span>662.      848B     16.9</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> map_for(x, f)      59.8µs   66.7µs    <span style="text-decoration: underline;">13</span>231.  362.89KB     12.5</span></code></pre></div>
 <p>All of these implementations are within a pretty close range. Although <code>map_for()</code> is fastest, the margin is small, so we’ll just use <code>map_lapply()</code> for simplicity.</p>
 </div>
-<div id="map2" class="section level3">
-<h3 class="hasAnchor">
-<a href="#map2" class="anchor"></a><code>map2</code>
+<div class="section level3">
+<h3 id="map2">
+<code>map2</code><a class="anchor" aria-label="anchor" href="#map2"></a>
 </h3>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">map2_purrr</span> <span class="op">&lt;-</span> <span class="fu">purrr</span><span class="fu">::</span><span class="va"><a href="https://purrr.tidyverse.org/reference/map2.html">map2</a></span>
+<code class="sourceCode R"><span class="va">map2_purrr</span> <span class="op">&lt;-</span> <span class="fu">purrr</span><span class="fu">::</span><span class="va"><a href="https://purrr.tidyverse.org/reference/map2.html" class="external-link">map2</a></span>
 
 <span class="va">map2_mapply</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">.x</span>, <span class="va">.y</span>, <span class="va">.f</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/mapply.html">mapply</a></span><span class="op">(</span><span class="va">.f</span>, <span class="va">.x</span>, <span class="va">.y</span>, MoreArgs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">...</span><span class="op">)</span>, SIMPLIFY <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/mapply.html" class="external-link">mapply</a></span><span class="op">(</span><span class="va">.f</span>, <span class="va">.x</span>, <span class="va">.y</span>, MoreArgs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">...</span><span class="op">)</span>, SIMPLIFY <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
 <span class="op">}</span>
 
 <span class="va">map2_for</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">.x</span>, <span class="va">.y</span>, <span class="va">.f</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span>
-  <span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/vector.html">vector</a></span><span class="op">(</span><span class="st">"list"</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">.x</span><span class="op">)</span><span class="op">)</span>
-  <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_along</a></span><span class="op">(</span><span class="va">.x</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+  <span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/vector.html" class="external-link">vector</a></span><span class="op">(</span><span class="st">"list"</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">.x</span><span class="op">)</span><span class="op">)</span>
+  <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_along</a></span><span class="op">(</span><span class="va">.x</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
     <span class="va">res</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu">.f</span><span class="op">(</span><span class="va">.x</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span>, <span class="va">.y</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span>, <span class="va">...</span><span class="op">)</span>
   <span class="op">}</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">.x</span><span class="op">)</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">.x</span><span class="op">)</span>
   <span class="va">res</span>
 <span class="op">}</span>
 
 <span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">100</span>
 <span class="va">y</span> <span class="op">&lt;-</span> <span class="va">x</span> <span class="op">*</span> <span class="fl">1000</span>
 <span class="va">f</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">a</span>, <span class="va">b</span><span class="op">)</span> <span class="va">a</span><span class="op">+</span><span class="va">b</span>
-<span class="fu">bench</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/bench/man/mark.html">mark</a></span><span class="op">(</span>
+<span class="fu">bench</span><span class="fu">::</span><span class="fu"><a href="http://bench.r-lib.org/reference/mark.html" class="external-link">mark</a></span><span class="op">(</span>
   <span class="fu">map2_purrr</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">f</span><span class="op">)</span>,
   <span class="fu">map2_mapply</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">f</span><span class="op">)</span>,
   <span class="fu">map2_for</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">f</span><span class="op">)</span>,
 <span class="op">)</span>
-<span class="co">#&gt; # A tibble: 3 × 6</span>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 6</span></span>
 <span class="co">#&gt;   expression                min   median `itr/sec` mem_alloc `gc/sec`</span>
-<span class="co">#&gt;   &lt;bch:expr&gt;           &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 map2_purrr(x, y, f)   121.4µs    135µs     6285.    31.2KB     19.3</span>
-<span class="co">#&gt; 2 map2_mapply(x, y, f)  128.6µs    225µs     4449.      848B     15.0</span>
-<span class="co">#&gt; 3 map2_for(x, y, f)      98.5µs    108µs     6900.    31.8KB     15.0</span>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;bch:expr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;bch:tm&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:tm&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:byt&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> map2_purrr(x, y, f)   123.4µs    138µs     <span style="text-decoration: underline;">5</span>205.    31.2KB     12.7</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> map2_mapply(x, y, f)  116.1µs    138µs     <span style="text-decoration: underline;">6</span>951.      848B     19.2</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> map2_for(x, y, f)      90.2µs    103µs     <span style="text-decoration: underline;">8</span>437.    31.8KB     14.8</span>
 
 <span class="co"># With named vector</span>
-<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
-<span class="op">(</span><span class="va">times</span> <span class="op">&lt;-</span> <span class="fu">bench</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/bench/man/mark.html">mark</a></span><span class="op">(</span>
+<span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
+<span class="op">(</span><span class="va">times</span> <span class="op">&lt;-</span> <span class="fu">bench</span><span class="fu">::</span><span class="fu"><a href="http://bench.r-lib.org/reference/mark.html" class="external-link">mark</a></span><span class="op">(</span>
   <span class="fu">map2_purrr</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">f</span><span class="op">)</span>,
   <span class="fu">map2_mapply</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">f</span><span class="op">)</span>,
   <span class="fu">map2_for</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">f</span><span class="op">)</span>,
 <span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 3 × 6</span>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 6</span></span>
 <span class="co">#&gt;   expression                min   median `itr/sec` mem_alloc `gc/sec`</span>
-<span class="co">#&gt;   &lt;bch:expr&gt;           &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 map2_purrr(x, y, f)   127.5µs    141µs     5788.      848B     17.4</span>
-<span class="co">#&gt; 2 map2_mapply(x, y, f)  132.2µs    148µs     5087.      848B     17.3</span>
-<span class="co">#&gt; 3 map2_for(x, y, f)      98.1µs    157µs     6891.      848B     14.9</span></code></pre></div>
-<p><code>map2_for</code> is about -6% faster than <code>map2_mapply</code>, for both named and unnamed inputs, so we’ll use <code>map2_for()</code>.</p>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;bch:expr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;bch:tm&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:tm&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:byt&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> map2_purrr(x, y, f)   128.2µs    139µs     <span style="text-decoration: underline;">6</span>639.      848B     16.7</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> map2_mapply(x, y, f)  121.4µs  134.2µs     <span style="text-decoration: underline;">6</span>775.      848B     21.5</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> map2_for(x, y, f)      89.6µs   98.8µs     <span style="text-decoration: underline;">9</span>928.      848B     16.8</span></code></pre></div>
+<p><code>map2_for</code> is about 26% faster than <code>map2_mapply</code>, for both named and unnamed inputs, so we’ll use <code>map2_for()</code>.</p>
 </div>
-<div id="map2_lgl-map2_int-map2_dbl-map2_chr" class="section level3">
-<h3 class="hasAnchor">
-<a href="#map2_lgl-map2_int-map2_dbl-map2_chr" class="anchor"></a><code>map2_lgl</code>, <code>map2_int</code>, <code>map2_dbl</code>, <code>map2_chr</code>
+<div class="section level3">
+<h3 id="map2_lgl-map2_int-map2_dbl-map2_chr">
+<code>map2_lgl</code>, <code>map2_int</code>, <code>map2_dbl</code>, <code>map2_chr</code><a class="anchor" aria-label="anchor" href="#map2_lgl-map2_int-map2_dbl-map2_chr"></a>
 </h3>
 <p>The <code>map2*</code> functions return an atomic vector of the specified type.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Use map2_for implementation from previous section</span>
 <span class="va">map2</span> <span class="op">&lt;-</span> <span class="va">map2_for</span>
 
-<span class="va">map2_dbl_purrr</span> <span class="op">&lt;-</span> <span class="fu">purrr</span><span class="fu">::</span><span class="va"><a href="https://purrr.tidyverse.org/reference/map2.html">map2_dbl</a></span>
+<span class="va">map2_dbl_purrr</span> <span class="op">&lt;-</span> <span class="fu">purrr</span><span class="fu">::</span><span class="va"><a href="https://purrr.tidyverse.org/reference/map2.html" class="external-link">map2_dbl</a></span>
 
 <span class="va">map2_dbl_mode</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">.x</span>, <span class="va">.y</span>, <span class="va">.f</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span>
   <span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">map2</span><span class="op">(</span><span class="va">.x</span>, <span class="va">.y</span>, <span class="va">.f</span>, <span class="va">...</span><span class="op">)</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/mode.html">mode</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"double"</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/mode.html" class="external-link">mode</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"double"</span>
   <span class="va">res</span>
 <span class="op">}</span>
 
 <span class="va">map2_dbl_storagemode</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">.x</span>, <span class="va">.y</span>, <span class="va">.f</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span>
   <span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">map2</span><span class="op">(</span><span class="va">.x</span>, <span class="va">.y</span>, <span class="va">.f</span>, <span class="va">...</span><span class="op">)</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/mode.html">storage.mode</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"double"</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/mode.html" class="external-link">storage.mode</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"double"</span>
   <span class="va">res</span>
 <span class="op">}</span>
 
 <span class="co"># This version is not strictly the same as the others, because it drops names.</span>
 <span class="va">map2_dbl_asnumeric</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">.x</span>, <span class="va">.y</span>, <span class="va">.f</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span>
-  <span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="fu">map2</span><span class="op">(</span><span class="va">.x</span>, <span class="va">.y</span>, <span class="va">.f</span>, <span class="va">...</span><span class="op">)</span><span class="op">)</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">.x</span><span class="op">)</span>
+  <span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="fu">map2</span><span class="op">(</span><span class="va">.x</span>, <span class="va">.y</span>, <span class="va">.f</span>, <span class="va">...</span><span class="op">)</span><span class="op">)</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">.x</span><span class="op">)</span>
   <span class="va">res</span>
 <span class="op">}</span>
 
 <span class="va">map2_dbl_for</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">.x</span>, <span class="va">.y</span>, <span class="va">.f</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span>
-  <span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/vector.html">vector</a></span><span class="op">(</span><span class="st">"double"</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">.x</span><span class="op">)</span><span class="op">)</span>
-  <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_along</a></span><span class="op">(</span><span class="va">.x</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+  <span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/vector.html" class="external-link">vector</a></span><span class="op">(</span><span class="st">"double"</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">.x</span><span class="op">)</span><span class="op">)</span>
+  <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_along</a></span><span class="op">(</span><span class="va">.x</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
     <span class="va">res</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu">.f</span><span class="op">(</span><span class="va">.x</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span>, <span class="va">.y</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span>, <span class="va">...</span><span class="op">)</span>
   <span class="op">}</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">.x</span><span class="op">)</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">.x</span><span class="op">)</span>
   <span class="va">res</span>
 <span class="op">}</span>
 
 <span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">1000</span>
 <span class="va">y</span> <span class="op">&lt;-</span> <span class="va">x</span> <span class="op">*</span> <span class="fl">10000</span>
-<span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">as.list</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
-<span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">as.list</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span>
+<span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">as.list</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
+<span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">as.list</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span>
 <span class="va">f</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">a</span>, <span class="va">b</span><span class="op">)</span> <span class="va">a</span><span class="op">+</span><span class="va">b</span>
 
 <span class="co"># This is what the output should look like</span>
 <span class="fu">map2_dbl_purrr</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="fl">101</span><span class="op">:</span><span class="fl">103</span>, <span class="va">f</span><span class="op">)</span>
 <span class="co">#&gt; [1] 102 104 106</span>
 
-<span class="fu">bench</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/bench/man/mark.html">mark</a></span><span class="op">(</span>
+<span class="fu">bench</span><span class="fu">::</span><span class="fu"><a href="http://bench.r-lib.org/reference/mark.html" class="external-link">mark</a></span><span class="op">(</span>
   <span class="fu">map2_dbl_purrr</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">f</span><span class="op">)</span>,
   <span class="fu">map2_dbl_mode</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">f</span><span class="op">)</span>,
   <span class="fu">map2_dbl_storagemode</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">f</span><span class="op">)</span>,
   <span class="fu">map2_dbl_asnumeric</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">f</span><span class="op">)</span>,
   <span class="fu">map2_dbl_for</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">f</span><span class="op">)</span>,
 <span class="op">)</span>
-<span class="co">#&gt; # A tibble: 5 × 6</span>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 5 × 6</span></span>
 <span class="co">#&gt;   expression                         min   median `itr/sec` mem_alloc `gc/sec`</span>
-<span class="co">#&gt;   &lt;bch:expr&gt;                    &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 map2_dbl_purrr(x, y, f)          967µs   1.15ms      793.    7.86KB     19.9</span>
-<span class="co">#&gt; 2 map2_dbl_mode(x, y, f)           849µs    962µs      894.   31.05KB     14.9</span>
-<span class="co">#&gt; 3 map2_dbl_storagemode(x, y, f)    850µs   1.08ms      871.   15.72KB     15.0</span>
-<span class="co">#&gt; 4 map2_dbl_asnumeric(x, y, f)      856µs   1.03ms      836.   15.72KB     13.0</span>
-<span class="co">#&gt; 5 map2_dbl_for(x, y, f)            826µs 893.36µs      962.   38.85KB     14.9</span>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;bch:expr&gt;</span>                    <span style="color: #949494; font-style: italic;">&lt;bch:tm&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:tm&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:byt&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> map2_dbl_purrr(x, y, f)          904µs   1.06ms      869.    7.86KB     17.5</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> map2_dbl_mode(x, y, f)           837µs 905.06µs     <span style="text-decoration: underline;">1</span>096.   31.05KB     17.1</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> map2_dbl_storagemode(x, y, f)    775µs 878.37µs     <span style="text-decoration: underline;">1</span>128.   15.72KB     14.8</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> map2_dbl_asnumeric(x, y, f)      772µs 877.15µs     <span style="text-decoration: underline;">1</span>129.   15.72KB     14.8</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> map2_dbl_for(x, y, f)            749µs 844.85µs     <span style="text-decoration: underline;">1</span>158.   38.85KB     17.1</span>
 
 <span class="co"># Same test, with names</span>
-<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
-<span class="op">(</span><span class="va">times</span> <span class="op">&lt;-</span> <span class="fu">bench</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/bench/man/mark.html">mark</a></span><span class="op">(</span>
+<span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
+<span class="op">(</span><span class="va">times</span> <span class="op">&lt;-</span> <span class="fu">bench</span><span class="fu">::</span><span class="fu"><a href="http://bench.r-lib.org/reference/mark.html" class="external-link">mark</a></span><span class="op">(</span>
   <span class="fu">map2_dbl_purrr</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">f</span><span class="op">)</span>,
   <span class="fu">map2_dbl_mode</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">f</span><span class="op">)</span>,
   <span class="fu">map2_dbl_storagemode</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">f</span><span class="op">)</span>,
   <span class="fu">map2_dbl_asnumeric</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">f</span><span class="op">)</span>,
   <span class="fu">map2_dbl_for</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">f</span><span class="op">)</span>,
 <span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 5 × 6</span>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 5 × 6</span></span>
 <span class="co">#&gt;   expression                         min   median `itr/sec` mem_alloc `gc/sec`</span>
-<span class="co">#&gt;   &lt;bch:expr&gt;                    &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 map2_dbl_purrr(x, y, f)            1ms   1.08ms      840.    7.86KB     19.4</span>
-<span class="co">#&gt; 2 map2_dbl_mode(x, y, f)           877µs    950µs      857.   15.72KB     15.0</span>
-<span class="co">#&gt; 3 map2_dbl_storagemode(x, y, f)    857µs 907.65µs      955.   15.72KB     14.9</span>
-<span class="co">#&gt; 4 map2_dbl_asnumeric(x, y, f)      856µs 921.65µs      927.   15.72KB     15.2</span>
-<span class="co">#&gt; 5 map2_dbl_for(x, y, f)            829µs 889.42µs      952.    7.86KB     15.1</span></code></pre></div>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;bch:expr&gt;</span>                    <span style="color: #949494; font-style: italic;">&lt;bch:tm&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:tm&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:byt&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> map2_dbl_purrr(x, y, f)          939µs   1.08ms      909.    7.86KB     19.8</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> map2_dbl_mode(x, y, f)           800µs    897µs      998.   15.72KB     14.7</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> map2_dbl_storagemode(x, y, f)    772µs 885.31µs     <span style="text-decoration: underline;">1</span>065.   15.72KB     14.9</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> map2_dbl_asnumeric(x, y, f)      814µs 882.07µs     <span style="text-decoration: underline;">1</span>104.   15.72KB     14.8</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> map2_dbl_for(x, y, f)            786µs 854.95µs     <span style="text-decoration: underline;">1</span>141.    7.86KB     14.8</span></code></pre></div>
 <p><code>map2_dbl_for()</code> is the fastest by a bit. However, one drawback is that if <code>.f()</code> returns a value of the incorrect type, it simply promotes the result vector to that type, and emits no warnings; the returned vector is not guaranteed to be of the specified type. This is not acceptable behavior.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>
 <span class="fu">map2_dbl_for</span><span class="op">(</span><span class="va">x</span>, <span class="va">x</span>, <span class="kw">function</span><span class="op">(</span><span class="va">a</span>, <span class="va">b</span><span class="op">)</span> <span class="st">"test"</span><span class="op">)</span>
 <span class="co">#&gt; [1] "test" "test"</span></code></pre></div>
 <p>The ideal behavior in this situation is for the function to throw an error when an incorrect type is returned. This is what <code>map2_dbl_purrr()</code> does.</p>
@@ -333,11 +329,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Winston Chang.</p>
+  <p></p>
+<p>Developed by Winston Chang.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer>
@@ -345,6 +343,8 @@
 
   
 
+
+  
 
   </body>
 </html>

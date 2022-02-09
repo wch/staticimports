@@ -21,6 +21,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -33,18 +35,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">staticimports</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.0.9000</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="reference/index.html">Reference</a>
 </li>
@@ -73,9 +69,9 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-<div id="staticimports" class="section level1">
-<div class="page-header"><h1 class="hasAnchor">
-<a href="#staticimports" class="anchor"></a>staticimports</h1></div>
+<div class="section level1">
+<div class="page-header"><h1 id="staticimports">staticimports<a class="anchor" aria-label="anchor" href="#staticimports"></a>
+</h1></div>
 <!-- badges: start -->
 
 <p>staticimports makes it easy to statically import functions into R projects or packages. The “static” importing means that the functions are copied into the project as text, instead of being loaded from a separate package at run time.</p>
@@ -88,7 +84,7 @@
 </ul>
 <p>Where can statically imported functions come from?</p>
 <ul>
-<li>Any package with an <code>inst/staticexports/</code> directory. This includes the staticimports package itself, which contains many utility functions in <a href="https://github.com/wch/staticimports/tree/main/inst/staticexports"><code>inst/staticexports/</code></a>.</li>
+<li>Any package with an <code>inst/staticexports/</code> directory. This includes the staticimports package itself, which contains many utility functions in <a href="https://github.com/wch/staticimports/tree/main/inst/staticexports" class="external-link"><code>inst/staticexports/</code></a>.</li>
 <li>A local directory on your computer. For example, you may maintain your own set of functions that you can statically import into a project.</li>
 <li>(Not implemented yet) A directory in a remote Git repository.</li>
 </ul>
@@ -100,30 +96,30 @@
 <li>Have no external dependencies</li>
 </ul>
 <p>If your project imports a function from staticimports, and that function changes in a way that has a negative impact on your project, you can simply stop importing it from staticimports, and copy the old version to a separate file.</p>
-<div id="installation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h2>
+<div class="section level2">
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h2>
 <p>You can install the development version of staticimports with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"wch/staticimports"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"wch/staticimports"</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="usage" class="section level2">
-<h2 class="hasAnchor">
-<a href="#usage" class="anchor"></a>Usage</h2>
+<div class="section level2">
+<h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
+</h2>
 <p>To use, put a comment block starting with <code># @staticimports</code> in one of your R source files. For example, your <code>utils.R</code> may have this at the top:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># @staticimports pkg:staticimports</span></span>
 <span id="cb2-2"><a href="#cb2-2"></a><span class="co">#  os_name %||%</span></span>
 <span id="cb2-3"><a href="#cb2-3"></a><span class="co">#  map walk</span></span></code></pre></div>
-<p>The <code>pkg:staticimports</code> tells it to import from staticimports package. To import from a different package, use <code>pkg:mypackage</code>. It looks in a directory of the package named <a href="https://github.com/wch/staticimports/tree/main/inst/staticexports"><code>staticexports</code></a> to find the objects. To import from a local absolute or relative path, you can use something like <code>@staticimports ../r_utils/</code>.</p>
+<p>The <code>pkg:staticimports</code> tells it to import from staticimports package. To import from a different package, use <code>pkg:mypackage</code>. It looks in a directory of the package named <a href="https://github.com/wch/staticimports/tree/main/inst/staticexports" class="external-link"><code>staticexports</code></a> to find the objects. To import from a local absolute or relative path, you can use something like <code>@staticimports ../r_utils/</code>.</p>
 <p>The following lines name the objects to import from the source. In this case, they are <code>os_name</code>, <code>%||%</code>, <code>map</code>, and <code>walk</code>.</p>
 <p>To perform the import, run:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://wch.github.io/staticimports">staticimports</a></span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://wch.github.io/staticimports">staticimports</a></span><span class="op">)</span>
 <span class="fu"><a href="reference/import.html">import</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p>By default this will write the functions to a file <code>R/staticimports.R</code> in your project.</p>
-<p>You examine the output by writing to <code><a href="https://rdrr.io/r/base/showConnections.html">stdout()</a></code> instead of <code>R/staticimports.R</code>. Notice how importing <code>os_name</code> automatically brings in <code>is_windows</code>, <code>is_mac</code>, and <code>is_linux</code>.</p>
+<p>You examine the output by writing to <code><a href="https://rdrr.io/r/base/showConnections.html" class="external-link">stdout()</a></code> instead of <code>R/staticimports.R</code>. Notice how importing <code>os_name</code> automatically brings in <code>is_windows</code>, <code>is_mac</code>, and <code>is_linux</code>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/import.html">import</a></span><span class="op">(</span>outfile <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/showConnections.html">stdout</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="reference/import.html">import</a></span><span class="op">(</span>outfile <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/showConnections.html" class="external-link">stdout</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb5"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co">#&gt; # Generated by staticimports; do not edit by hand.</span></span>
 <span id="cb5-2"><a href="#cb5-2"></a><span class="co">#&gt; # ======================================================================</span></span>
 <span id="cb5-3"><a href="#cb5-3"></a><span class="co">#&gt; </span></span>
@@ -163,7 +159,7 @@
 <span id="cb5-37"><a href="#cb5-37"></a><span class="co">#&gt; }</span></span></code></pre></div>
 <p>For testing what the output will look like, you can use <code><a href="reference/import_objs.html">import_objs()</a></code> to see what it looks like when you import specific objects by name:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/import_objs.html">import_objs</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"map"</span>, <span class="st">"walk"</span><span class="op">)</span>, outfile <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/showConnections.html">stdout</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="reference/import_objs.html">import_objs</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"map"</span>, <span class="st">"walk"</span><span class="op">)</span>, outfile <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/showConnections.html" class="external-link">stdout</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; # Generated by staticimports; do not edit by hand.</span>
 <span class="co">#&gt; # ======================================================================</span>
 <span class="co">#&gt; </span>
@@ -178,16 +174,16 @@
 <span class="co">#&gt;   NULL</span>
 <span class="co">#&gt; }</span></code></pre></div>
 </div>
-<div id="under-the-hood" class="section level2">
-<h2 class="hasAnchor">
-<a href="#under-the-hood" class="anchor"></a>Under the hood</h2>
-<p>The functions provided by staticimports are in the <a href="https://github.com/wch/staticimports/tree/main/inst/staticexports">inst/staticexports</a> directory of the repository. When <code><a href="reference/import.html">import()</a></code> is called, it sources all of those files into a new environment. Then it finds all the internal dependencies among those functions. If a function <code>fn_a</code> is requested, and it uses a function <code>fn_b</code>, then both of those functions will be copied to the project.</p>
+<div class="section level2">
+<h2 id="under-the-hood">Under the hood<a class="anchor" aria-label="anchor" href="#under-the-hood"></a>
+</h2>
+<p>The functions provided by staticimports are in the <a href="https://github.com/wch/staticimports/tree/main/inst/staticexports" class="external-link">inst/staticexports</a> directory of the repository. When <code><a href="reference/import.html">import()</a></code> is called, it sources all of those files into a new environment. Then it finds all the internal dependencies among those functions. If a function <code>fn_a</code> is requested, and it uses a function <code>fn_b</code>, then both of those functions will be copied to the project.</p>
 <p>If a different set of source files is used, it sources all of the files in the target directory into a new environment and then proceeds the same way.</p>
-<p>For functions, it will use source refs to copy the original text. For non-functions (say, a list with some precomputed values), it will call <code><a href="https://rdrr.io/r/base/deparse.html">deparse()</a></code> on the object and write that to the file. Note that deparsing will not work correctly for all objects.</p>
+<p>For functions, it will use source refs to copy the original text. For non-functions (say, a list with some precomputed values), it will call <code><a href="https://rdrr.io/r/base/deparse.html" class="external-link">deparse()</a></code> on the object and write that to the file. Note that deparsing will not work correctly for all objects.</p>
 </div>
-<div id="todo" class="section level2">
-<h2 class="hasAnchor">
-<a href="#todo" class="anchor"></a>TODO</h2>
+<div class="section level2">
+<h2 id="todo">TODO<a class="anchor" aria-label="anchor" href="#todo"></a>
+</h2>
 <ul>
 <li>Figure out and explain licensing issues.</li>
 <li>Write license info in generated file.</li>
@@ -198,36 +194,48 @@
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="license">
-<h2>License</h2>
+<h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
 <li><a href="LICENSE.html">Full license</a></li>
-<li><small><a href="https://opensource.org/licenses/mit-license.php">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a></small></li>
-</ul>
-</div>
-<div class="developers">
-<h2>Developers</h2>
-<ul class="list-unstyled">
-<li>Winston Chang <br><small class="roles"> Author, maintainer </small>  </li>
-<li><a href="authors.html">All authors...</a></li>
+<li><small><a href="https://opensource.org/licenses/mit-license.php" class="external-link">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a></small></li>
 </ul>
 </div>
 
-  <div class="dev-status">
-<h2>Dev status</h2>
+
+<div class="citation">
+<h2 data-toc-skip>Citation</h2>
 <ul class="list-unstyled">
-<li><a href="https://github.com/wch/staticimports/actions"><img src="https://github.com/wch/staticimports/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
+<li><a href="authors.html#citation">Citing staticimports</a></li>
 </ul>
 </div>
+
+<div class="developers">
+<h2 data-toc-skip>Developers</h2>
+<ul class="list-unstyled">
+<li>Winston Chang <br><small class="roles"> Author, maintainer </small>  </li>
+<li><a href="authors.html">More about authors...</a></li>
+</ul>
 </div>
+
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://github.com/wch/staticimports/actions" class="external-link"><img src="https://github.com/wch/staticimports/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
+</ul>
+</div>
+
+  </div>
 </div>
 
 
       <footer><div class="copyright">
-  <p>Developed by Winston Chang.</p>
+  <p></p>
+<p>Developed by Winston Chang.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer>
@@ -235,6 +243,8 @@
 
   
 
+
+  
 
   </body>
 </html>
