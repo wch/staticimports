@@ -107,9 +107,9 @@ import(outfile = stdout())
     #>   if (is.null(a)) b else a
     #> }
     #> 
-    #> is_linux <- function() Sys.info()[['sysname']] == 'Linux'
+    #> is_linux   <- function() Sys.info()[['sysname']] == 'Linux'
     #> 
-    #> is_mac <- function() Sys.info()[['sysname']] == 'Darwin'
+    #> is_mac     <- function() Sys.info()[['sysname']] == 'Darwin'
     #> 
     #> is_windows <- function() .Platform$OS.type == "windows"
     #> 
@@ -171,11 +171,6 @@ copied to the project.
 If a different set of source files is used, it sources all of the files
 in the target directory into a new environment and then proceeds the
 same way.
-
-For functions, it will use source refs to copy the original text. For
-non-functions (say, a list with some precomputed values), it will call
-`deparse()` on the object and write that to the file. Note that
-deparsing will not work correctly for all objects.
 
 ## TODO
 
