@@ -131,5 +131,5 @@ discard <- function(.x, .f, ...) {
 }
 
 compact <- function(.x) {
-  Filter(length, .x)
+  .x[as.logical(vapply(.x, length, NA_integer_))]
 }
