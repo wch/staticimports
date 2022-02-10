@@ -112,10 +112,10 @@
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 6</span></span>
 <span class="co">#&gt;   expression             min   median `itr/sec` mem_alloc `gc/sec`</span>
 <span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;bch:expr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;bch:tm&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:tm&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:byt&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> walk_purrr(x, f)    85.9µs   91.4µs    <span style="text-decoration: underline;">10</span>580.  483.98KB     10.3</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> walk_lapply(x, f)   64.2µs   68.6µs    <span style="text-decoration: underline;">14</span>174.      848B     15.1</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> walk_for(x, f)        51µs   55.6µs    <span style="text-decoration: underline;">17</span>247.    3.52MB     16.7</span></code></pre></div>
-<p>Of the three implementations, <code>walk_for()</code> is the fastest. It is about 39% faster than <code>walk_purrr()</code>, and 25% faster than <code>walk_lapply()</code>.</p>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> walk_purrr(x, f)    85.9µs     92µs     <span style="text-decoration: underline;">7</span>798.  483.98KB     8.20</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> walk_lapply(x, f)     64µs   69.1µs     <span style="text-decoration: underline;">8</span>890.      848B    10.4 </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> walk_for(x, f)      48.6µs   56.6µs    <span style="text-decoration: underline;">15</span>748.    3.52MB    13.0</span></code></pre></div>
+<p>Of the three implementations, <code>walk_for()</code> is the fastest. It is about 38% faster than <code>walk_purrr()</code>, and 25% faster than <code>walk_lapply()</code>.</p>
 <p>Note that <code>walk_purrr()</code> returns the input <code>.x</code> object, whereas the other two implementations return <code>NULL</code>.</p>
 </div>
 <div class="section level3">
@@ -149,10 +149,10 @@
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 4 × 6</span></span>
 <span class="co">#&gt;   expression            min   median `itr/sec` mem_alloc `gc/sec`</span>
 <span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;bch:expr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;bch:tm&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:tm&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:byt&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> map_purrr(x, f)    84.6µs     91µs    <span style="text-decoration: underline;">10</span>688.    3.69KB     14.7</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> lapply(x, f)       62.2µs     67µs    <span style="text-decoration: underline;">14</span>594.      848B     19.2</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> map_lapply(x, f)     63µs   68.1µs    <span style="text-decoration: underline;">14</span>314.      848B     16.9</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> map_for(x, f)      62.9µs   66.9µs    <span style="text-decoration: underline;">14</span>638.  362.89KB     14.7</span></code></pre></div>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> map_purrr(x, f)    85.6µs   91.2µs     <span style="text-decoration: underline;">6</span>824.    3.69KB     10.4</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> lapply(x, f)       63.3µs   67.8µs    <span style="text-decoration: underline;">10</span>066.      848B     12.6</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> map_lapply(x, f)   63.3µs   68.5µs    <span style="text-decoration: underline;">10</span>852.      848B     12.6</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> map_for(x, f)      62.8µs   66.8µs     <span style="text-decoration: underline;">9</span>820.  362.89KB     10.2</span></code></pre></div>
 <p>All of these implementations are within a pretty close range. Although <code>map_for()</code> is fastest, the margin is small, so we’ll just use <code>map_lapply()</code> for simplicity.</p>
 </div>
 <div class="section level3">
@@ -186,9 +186,9 @@
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 6</span></span>
 <span class="co">#&gt;   expression                min   median `itr/sec` mem_alloc `gc/sec`</span>
 <span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;bch:expr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;bch:tm&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:tm&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:byt&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> map2_purrr(x, y, f)   129.3µs  139.5µs     <span style="text-decoration: underline;">7</span>042.    31.2KB     16.9</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> map2_mapply(x, y, f)  124.6µs  137.8µs     <span style="text-decoration: underline;">7</span>163.      848B     21.3</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> map2_for(x, y, f)      89.9µs   99.7µs     <span style="text-decoration: underline;">9</span>739.    31.8KB     16.5</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> map2_purrr(x, y, f)   129.2µs    147µs     <span style="text-decoration: underline;">4</span>894.    31.2KB     12.1</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> map2_mapply(x, y, f)  126.8µs    137µs     <span style="text-decoration: underline;">5</span>541.      848B     17.0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> map2_for(x, y, f)      94.4µs    104µs     <span style="text-decoration: underline;">6</span>943.    31.8KB     13.0</span>
 
 <span class="co"># With named vector</span>
 <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
@@ -200,10 +200,10 @@
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 6</span></span>
 <span class="co">#&gt;   expression                min   median `itr/sec` mem_alloc `gc/sec`</span>
 <span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;bch:expr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;bch:tm&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:tm&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:byt&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> map2_purrr(x, y, f)     125µs    136µs     <span style="text-decoration: underline;">7</span>288.      848B     19.0</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> map2_mapply(x, y, f)  129.5µs    137µs     <span style="text-decoration: underline;">6</span>671.      848B     19.4</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> map2_for(x, y, f)      97.1µs    103µs     <span style="text-decoration: underline;">9</span>444.      848B     14.6</span></code></pre></div>
-<p><code>map2_for</code> is about 25% faster than <code>map2_mapply</code>, for both named and unnamed inputs, so we’ll use <code>map2_for()</code>.</p>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> map2_purrr(x, y, f)   133.2µs  144.1µs     <span style="text-decoration: underline;">5</span>104.      848B     12.6</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> map2_mapply(x, y, f)  132.9µs    144µs     <span style="text-decoration: underline;">5</span>815.      848B     16.9</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> map2_for(x, y, f)      94.7µs   99.7µs     <span style="text-decoration: underline;">6</span>099.      848B     10.2</span></code></pre></div>
+<p><code>map2_for</code> is about 31% faster than <code>map2_mapply</code>, for both named and unnamed inputs, so we’ll use <code>map2_for()</code>.</p>
 </div>
 <div class="section level3">
 <h3 id="map2_lgl-map2_int-map2_dbl-map2_chr">
@@ -264,11 +264,11 @@
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 5 × 6</span></span>
 <span class="co">#&gt;   expression                         min   median `itr/sec` mem_alloc `gc/sec`</span>
 <span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;bch:expr&gt;</span>                    <span style="color: #949494; font-style: italic;">&lt;bch:tm&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:tm&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:byt&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> map2_dbl_purrr(x, y, f)          980µs   1.05ms      951.    7.86KB     19.4</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> map2_dbl_mode(x, y, f)           842µs 903.15µs     <span style="text-decoration: underline;">1</span>097.   31.05KB     14.8</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> map2_dbl_storagemode(x, y, f)    826µs 890.86µs     <span style="text-decoration: underline;">1</span>114.   15.72KB     17.1</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> map2_dbl_asnumeric(x, y, f)      784µs 885.16µs     <span style="text-decoration: underline;">1</span>119.   15.72KB     14.8</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> map2_dbl_for(x, y, f)            814µs 873.49µs     <span style="text-decoration: underline;">1</span>141.   38.85KB     17.3</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> map2_dbl_purrr(x, y, f)          972µs   1.02ms      744.    7.86KB     15.0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> map2_dbl_mode(x, y, f)           844µs 859.06µs     <span style="text-decoration: underline;">1</span>142.   31.05KB     17.0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> map2_dbl_storagemode(x, y, f)    812µs 848.59µs     <span style="text-decoration: underline;">1</span>141.   15.72KB     15.0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> map2_dbl_asnumeric(x, y, f)      831µs 873.38µs     <span style="text-decoration: underline;">1</span>042.   15.72KB     14.9</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> map2_dbl_for(x, y, f)            803µs 855.48µs     <span style="text-decoration: underline;">1</span>032.   38.85KB     14.9</span>
 
 <span class="co"># Same test, with names</span>
 <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
@@ -282,11 +282,11 @@
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 5 × 6</span></span>
 <span class="co">#&gt;   expression                         min   median `itr/sec` mem_alloc `gc/sec`</span>
 <span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;bch:expr&gt;</span>                    <span style="color: #949494; font-style: italic;">&lt;bch:tm&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:tm&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:byt&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> map2_dbl_purrr(x, y, f)          982µs   1.09ms      894.    7.86KB     17.0</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> map2_dbl_mode(x, y, f)           865µs 906.88µs     <span style="text-decoration: underline;">1</span>097.   15.72KB     17.1</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> map2_dbl_storagemode(x, y, f)    826µs 889.33µs     <span style="text-decoration: underline;">1</span>109.   15.72KB     14.8</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> map2_dbl_asnumeric(x, y, f)      849µs 890.69µs     <span style="text-decoration: underline;">1</span>092.   15.72KB     14.8</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> map2_dbl_for(x, y, f)            816µs 868.33µs     <span style="text-decoration: underline;">1</span>145.    7.86KB     17.4</span></code></pre></div>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> map2_dbl_purrr(x, y, f)         1.01ms   1.08ms      887.    7.86KB     19.3</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> map2_dbl_mode(x, y, f)         850.8µs 892.91µs     <span style="text-decoration: underline;">1</span>072.   15.72KB     14.8</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> map2_dbl_storagemode(x, y, f) 834.49µs  874.8µs     <span style="text-decoration: underline;">1</span>065.   15.72KB     14.8</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> map2_dbl_asnumeric(x, y, f)   825.69µs 874.54µs     <span style="text-decoration: underline;">1</span>049.   15.72KB     15.0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> map2_dbl_for(x, y, f)         781.36µs 844.11µs     <span style="text-decoration: underline;">1</span>119.    7.86KB     14.8</span></code></pre></div>
 <p><code>map2_dbl_for()</code> is the fastest by a bit. However, one drawback is that if <code>.f()</code> returns a value of the incorrect type, it simply promotes the result vector to that type, and emits no warnings; the returned vector is not guaranteed to be of the specified type. This is not acceptable behavior.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>
