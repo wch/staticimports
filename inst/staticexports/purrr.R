@@ -121,3 +121,15 @@ imap_dbl <- function(.x, .f, ...) {
 imap_chr <- function(.x, .f, ...) {
   map2_chr(.x, vec_index(.x), .f, ...)
 }
+
+keep <- function(.x, .f, ...) {
+  .x[vapply(.x, .f, ..., FUN.VALUE = NA)]
+}
+
+discard <- function(.x, .f, ...) {
+  .x[!vapply(.x, .f, ..., FUN.VALUE = NA)]
+}
+
+compact <- function(.x) {
+  .x[as.logical(vapply(.x, length, NA_integer_))]
+}
