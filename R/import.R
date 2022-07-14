@@ -107,8 +107,17 @@ import_objs <- function(
     }
   }
 
-  dep_table <- find_internal_deps(env)
-  all_dep_names <- c(names, unlist(dep_table[names], recursive = FALSE, use.names = FALSE))
+  if ("*" %in% names) {
+    explicit_names <- setdiff(names, "*")
+    all_names <- names(env)
+    # Include any names that were explicitly requested alongside *
+    # so the user will get an error if any names could not be found
+    all_dep_names <- c(explicit_names, all_names)
+  } else {
+    dep_table <- find_internal_deps(env)
+    all_dep_names <- c(names, unlist(dep_table[names], recursive = FALSE, use.names = FALSE))
+  }
+
   all_dep_names <- sort(unique(all_dep_names))
 
   all_dep_objs <- mget(all_dep_names, env)
