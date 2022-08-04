@@ -1,9 +1,9 @@
 pandoc: 2.7.3
-pkgdown: 2.0.2
+pkgdown: 2.0.6
 pkgdown_sha: ~
 articles:
   speed_tests: speed_tests.html
-last_built: 2022-02-16T16:37Z
+last_built: 2022-08-04T15:23Z
 urls:
   reference: https://wch.github.io/staticimports/reference
   article: https://wch.github.io/staticimports/articles

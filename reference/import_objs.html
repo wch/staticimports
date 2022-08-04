@@ -26,7 +26,7 @@
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -54,41 +54,50 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">import_objs</span><span class="op">(</span>
-  <span class="va">names</span>,
-  source <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"staticexports"</span>, package <span class="op">=</span> <span class="st">"staticimports"</span><span class="op">)</span>,
-  outfile <span class="op">=</span> <span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html" class="external-link">here</a></span><span class="op">(</span><span class="st">"R/staticimports.R"</span><span class="op">)</span>,
-  label <span class="op">=</span> <span class="cn">NULL</span>,
-  append <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">import_objs</span><span class="op">(</span></span>
+<span>  <span class="va">names</span>,</span>
+<span>  source <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"staticexports"</span>, package <span class="op">=</span> <span class="st">"staticimports"</span><span class="op">)</span>,</span>
+<span>  outfile <span class="op">=</span> <span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html" class="external-link">here</a></span><span class="op">(</span><span class="st">"R/staticimports.R"</span><span class="op">)</span>,</span>
+<span>  label <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  append <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>names</dt>
 <dd><p>A character vector of names of objects to import.</p></dd>
+
+
 <dt>source</dt>
 <dd><p>A directory containing source files, or an environment to use
 as the source.</p></dd>
+
+
 <dt>outfile</dt>
 <dd><p>File to write to. Defaults to R/staticimports.R in the current
 project. Use <code><a href="https://rdrr.io/r/base/showConnections.html" class="external-link">stdout()</a></code> to output to console.</p></dd>
+
+
 <dt>label</dt>
 <dd><p>A label to write to the file, to indicate where the objects were
 imported from.</p></dd>
+
+
 <dt>append</dt>
 <dd><p>If <code>TRUE</code>, append to the output file; otherwise overwrite.</p></dd>
+
 </dl></div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="co"># Import `os_name` and `walk` into your project</span></span>
-<span class="r-in"><span class="fu">import_objs</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"os_name"</span>, <span class="st">"walk"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Write to stdout instead of R/staticimports.R</span></span>
-<span class="r-in"><span class="fu">import_objs</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"os_name"</span>, <span class="st">"walk"</span><span class="op">)</span>, outfile <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/showConnections.html" class="external-link">stdout</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="co"># Import `os_name` and `walk` into your project</span></span></span>
+<span class="r-in"><span><span class="fu">import_objs</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"os_name"</span>, <span class="st">"walk"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Write to stdout instead of R/staticimports.R</span></span></span>
+<span class="r-in"><span><span class="fu">import_objs</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"os_name"</span>, <span class="st">"walk"</span><span class="op">)</span>, outfile <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/showConnections.html" class="external-link">stdout</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> # Generated by staticimports; do not edit by hand.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> # ======================================================================</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -132,7 +141,7 @@ imported from.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

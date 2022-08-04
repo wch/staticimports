@@ -45,7 +45,7 @@ R/staticimports.R."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/aj
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -71,17 +71,17 @@ R/staticimports.R."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/aj
     <div class="ref-description">
     <p>This function finds staticimports declarations and copies the objects to a
 target file.</p>
-<p>staticmports declartions are comment blocks that look like this:</p><div class="sourceCode"><pre><code><span class="co"># @staticimports pkg:staticimports</span>
-<span class="co">#   map map_chr map_lgl os_name any_named any_unnamed</span>
-<span class="co">#   all_named all_unnamed</span></code></pre></div>
+<p>staticmports declartions are comment blocks that look like this:</p><div class="sourceCode"><pre><code><span><span class="co"># @staticimports pkg:staticimports</span></span>
+<span><span class="co">#   map map_chr map_lgl os_name any_named any_unnamed</span></span>
+<span><span class="co">#   all_named all_unnamed</span></span></code></pre></div>
 
 <p>The <code>pkg:staticimports</code> means to import objects from the package named
 <strong>staticimports</strong>. If you use <code>pkg:mypackage</code>, it will import from
 <strong>mypackage</strong>.</p>
 <p>On the following lines are the names of the objects to import.</p>
-<p>The import declaration can also use a path. For example:</p><div class="sourceCode"><pre><code><span class="co"># @staticimports ../mystaticexports</span>
-<span class="co">#   map map_chr map_lgl os_name any_named any_unnamed</span>
-<span class="co">#   all_named all_unnamed</span></code></pre></div>
+<p>The import declaration can also use a path. For example:</p><div class="sourceCode"><pre><code><span><span class="co"># @staticimports ../mystaticexports</span></span>
+<span><span class="co">#   map map_chr map_lgl os_name any_named any_unnamed</span></span>
+<span><span class="co">#   all_named all_unnamed</span></span></code></pre></div>
 
 <p>If a relative path is used, it will be relative to the top-leve of this
 project, as determined by <code><a href="https://here.r-lib.org//reference/here.html" class="external-link">here::here()</a></code>.</p>
@@ -90,16 +90,19 @@ project, as determined by <code><a href="https://here.r-lib.org//reference/here.
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">import</span><span class="op">(</span>dir <span class="op">=</span> <span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html" class="external-link">here</a></span><span class="op">(</span><span class="st">"R/"</span><span class="op">)</span>, outfile <span class="op">=</span> <span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html" class="external-link">here</a></span><span class="op">(</span><span class="st">"R/staticimports.R"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">import</span><span class="op">(</span>dir <span class="op">=</span> <span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html" class="external-link">here</a></span><span class="op">(</span><span class="st">"R/"</span><span class="op">)</span>, outfile <span class="op">=</span> <span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html" class="external-link">here</a></span><span class="op">(</span><span class="st">"R/staticimports.R"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>dir</dt>
 <dd><p>A directory containing .R files to scan for import declarations.</p></dd>
+
+
 <dt>outfile</dt>
 <dd><p>File to write to. Defaults to R/staticimports.R in the current
 project. Use <code><a href="https://rdrr.io/r/base/showConnections.html" class="external-link">stdout()</a></code> to output to console.</p></dd>
+
 </dl></div>
 
   </div>
@@ -114,7 +117,7 @@ project. Use <code><a href="https://rdrr.io/r/base/showConnections.html" class="
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

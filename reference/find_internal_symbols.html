@@ -37,7 +37,7 @@ function."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/m
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -75,27 +75,30 @@ function.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">find_internal_symbols</span><span class="op">(</span>env <span class="op">=</span> <span class="st">"staticimports"</span><span class="op">)</span>
-
-<span class="fu">find_internal_deps</span><span class="op">(</span>env <span class="op">=</span> <span class="st">"staticimports"</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">find_internal_symbols</span><span class="op">(</span>env <span class="op">=</span> <span class="st">"staticimports"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">find_internal_deps</span><span class="op">(</span>env <span class="op">=</span> <span class="st">"staticimports"</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>env</dt>
 <dd><p>A string naming a package, or an environment.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A named list, where the name of each element is the name of each
+    
+
+<p>A named list, where the name of each element is the name of each
 object in <code>env</code>, and the value is a character vector of strings, where each
 string is the name of an object in the environment.</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># By default, find symbols internal to the staticimports package</span></span>
-<span class="r-in"><span class="fu">find_internal_symbols</span><span class="op">(</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># By default, find symbols internal to the staticimports package</span></span></span>
+<span class="r-in"><span><span class="fu">find_internal_symbols</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $import</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "find_staticimports" "import"             "import_objs"       </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -151,11 +154,20 @@ string is the name of an object in the environment.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $is_parseable</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> character(0)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Find all symbols internal to the utils package</span></span>
-<span class="r-in"><span class="fu">find_internal_symbols</span><span class="op">(</span><span class="st">"utils"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Find all symbols internal to the utils package</span></span></span>
+<span class="r-in"><span><span class="fu">find_internal_symbols</span><span class="op">(</span><span class="st">"utils"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $C_sethash_Ext</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> character(0)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $relist.default</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> character(0)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $format.hashtab</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "numhash" "typhash"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`[[&lt;-.hashtab`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "sethash"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $aspell_control_R_Rd_files</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> character(0)</span>
@@ -167,10 +179,10 @@ string is the name of an object in the environment.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] ".defenv_for_S3_registry" "findGeneric"            </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [3] "getKnownS3generics"      "methods"                </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $regquote</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $C_menu</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> character(0)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $C_menu</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $regquote</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> character(0)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $debugger</span>
@@ -250,6 +262,9 @@ string is the name of an object in the environment.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $as.relistable</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> character(0)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $str.hashtab</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "numhash" "typhash"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $C_processevents</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> character(0)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -274,11 +289,17 @@ string is the name of an object in the environment.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $check_for_XQuartz</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> character(0)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $as.environment.hashtab</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> character(0)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $dataentry</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "C_dataentry"       "check_for_XQuartz" "data"             </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $specialOpLocs</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "specialOps"   "tail.default"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $remhash</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "C_remhash_Ext"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $write.table</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "C_writetable"</span>
@@ -317,11 +338,11 @@ string is the name of an object in the environment.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $available_packages_filters_default</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> character(0)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $relist.factor</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> character(0)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $write.csv2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "write.table"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $relist.factor</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> character(0)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $download.packages</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "available.packages" "contrib.url"        "download.file"     </span>
@@ -402,6 +423,9 @@ string is the name of an object in the environment.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $read.csv2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "read.table"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $xemacs</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "edit.default"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $specialFunctionArgs</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] ".CompletionEnv"     "data"               "findMatches"       </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [4] "installed.packages" "makeRegexpSafe"    </span>
@@ -411,9 +435,6 @@ string is the name of an object in the environment.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $aspell_control_R_manuals</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> character(0)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $xemacs</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "edit.default"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $tail.matrix</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "checkHT"</span>
@@ -539,6 +560,9 @@ string is the name of an object in the environment.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $getCRANmirrors</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] ".getMirrors"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $C_ishashtab_Ext</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> character(0)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $de.setup</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> character(0)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -589,6 +613,9 @@ string is the name of an object in the environment.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $specialOps</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> character(0)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $length.hashtab</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "numhash"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $print.news_db</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "browseURL"</span>
@@ -680,14 +707,17 @@ string is the name of an object in the environment.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $getSrcLocation</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "getSrcLocation" "getSrcref"     </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $findCRANmirror</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> character(0)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $write.csv</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "write.table"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $as.character.person</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> character(0)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $txtProgressBar</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "flush.console"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $write.csv</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "write.table"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $bug.report.info</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> character(0)</span>
@@ -746,8 +776,9 @@ string is the name of an object in the environment.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "as.roman"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $format.bibentry</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] ".bibentry_expand_crossrefs"   ".bibentry_match_format_style"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3] ".format_bibentry_as_R_code"   "toBibtex"                    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] ".bibentry"                    ".bibentry_expand_crossrefs"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3] ".bibentry_match_format_style" ".format_bibentry_as_R_code"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [5] "toBibtex"                    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $URLencode</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> character(0)</span>
@@ -807,6 +838,9 @@ string is the name of an object in the environment.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $checkCRAN</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "available.packages" "contrib.url"        "getCRANmirrors"    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $hashtab</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "C_hashtab_Ext"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $getDependencies</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] ".clean_up_dependencies2" "flush.console"          </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [3] "installed.packages"      "isBasePkg"              </span>
@@ -832,6 +866,9 @@ string is the name of an object in the environment.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "browseURL"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $strOptions</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> character(0)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $C_gethash_Ext</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> character(0)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $C_readtablehead</span>
@@ -932,6 +969,9 @@ string is the name of an object in the environment.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $SweaveHooks</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "SweaveHooks"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $C_numhash_Ext</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> character(0)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $rtags.file</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "expr2token"  "write.etags"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -962,7 +1002,13 @@ string is the name of an object in the environment.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [4] "makeRegexpSafe"      "methods"             "rc.getOption"       </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [7] "specialFunctionArgs"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $maphash</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "C_maphash_Ext"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $getSrcByte</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> character(0)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $print.hashtab</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> character(0)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $url.show</span>
@@ -986,8 +1032,14 @@ string is the name of an object in the environment.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $correctFilenameToken</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] ".CompletionEnv" "head.default"  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $sethash</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "C_sethash_Ext"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $data.entry</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "de"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $is.hashtab</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "C_ishashtab_Ext"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $promptPackage</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> character(0)</span>
@@ -1022,6 +1074,9 @@ string is the name of an object in the environment.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] ".aspell_package_defaults" "aspell"                  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [3] "aspell_find_dictionaries" "aspell_find_program"     </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $C_typhash_Ext</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> character(0)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $C_loadhistory</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> character(0)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -1045,6 +1100,9 @@ string is the name of an object in the environment.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`[[.person`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> character(0)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`[[.hashtab`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "gethash"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $hsearch_db</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] ".get_standard_Rd_keywords_with_descriptions"</span>
@@ -1089,7 +1147,7 @@ string is the name of an object in the environment.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [3] "aspell_find_dictionaries"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $subset.news_db</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> character(0)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "news"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $aspell_control_R_vignettes</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> character(0)</span>
@@ -1104,13 +1162,16 @@ string is the name of an object in the environment.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "dump.frames"   "limitedLabels" "menu"          "recover"      </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $example</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] ".getHelpFile" "index.search"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] ".getHelpFile" "browseURL"    "index.search" "str2logical" </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $chooseCRANmirror</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] ".chooseMirror"  "getCRANmirrors"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $chooseBioCmirror</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] ".chooseMirror" ".getMirrors"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $write.socket</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "C_sockwrite"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $formatUL</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] ".format_rl_table"</span>
@@ -1120,9 +1181,6 @@ string is the name of an object in the environment.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $select.list</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "C_selectlist" "menu"        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $write.socket</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "C_sockwrite"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $SweaveSyntaxNoweb</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> character(0)</span>
@@ -1199,6 +1257,9 @@ string is the name of an object in the environment.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $asDateBuilt</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> character(0)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $gethash</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "C_gethash_Ext"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`$&lt;-.bibentry`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] ".bibentry"                 ".bibentry_check_bibentry1"</span>
@@ -1284,13 +1345,13 @@ string is the name of an object in the environment.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $process.events</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "C_processevents"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $C_crc64</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> character(0)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $localeToCharset</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> character(0)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $as.personList</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> character(0)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $C_crc64</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> character(0)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $as.character.roman</span>
@@ -1320,6 +1381,9 @@ string is the name of an object in the environment.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $C_savehistory</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> character(0)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`$&lt;-.citation`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] ".citation"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $get_parse_data_for_message_strings</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "getParseData" "getParseText"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -1331,6 +1395,9 @@ string is the name of an object in the environment.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $merge_vignette_index</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> character(0)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $typhash</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "C_typhash_Ext"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $fileCompletionPreferred</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] ".CompletionEnv" "head.default"  </span>
@@ -1349,6 +1416,9 @@ string is the name of an object in the environment.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $getIsFirstArg</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] ".CompletionEnv"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $C_maphash_Ext</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> character(0)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $file_test</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> character(0)</span>
@@ -1405,7 +1475,7 @@ string is the name of an object in the environment.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "aregexec"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $demo</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "file_test"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "browseURL"   "file_test"   "str2logical"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $changedFiles</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "fileSnapshot" "file_test"    "timestamp"   </span>
@@ -1452,11 +1522,14 @@ string is the name of an object in the environment.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $C_octsize</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> character(0)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $modifyList</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "modifyList"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $C_remhash_Ext</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> character(0)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $warnErrList</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "capture.output"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $modifyList</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "modifyList"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`[[.bibentry`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] ".bibentry_get_key"             "bibentry_list_attribute_names"</span>
@@ -1497,10 +1570,16 @@ string is the name of an object in the environment.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "C_loadhistory"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $remove.packages</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "make.packages.html"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "isBasePkg"          "make.packages.html"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $clrhash</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "C_clrhash_Ext"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $getSrcFilename</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "getSrcFilename" "getSrcref"     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $C_clrhash_Ext</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> character(0)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $assignInNamespace</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] ".defenv_for_S3_registry" "methods"                </span>
@@ -1516,6 +1595,9 @@ string is the name of an object in the environment.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $RweaveLatexWritedoc</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "RweaveChunkPrefix"  "RweaveLatexOptions" "SweaveParseOptions"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $C_hashtab_Ext</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> character(0)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $make.socket</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "C_sockclose"   "C_sockconnect" "C_socklisten"  "C_sockopen"   </span>
@@ -1562,6 +1644,9 @@ string is the name of an object in the environment.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $merge_demo_index</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> character(0)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $numhash</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "C_numhash_Ext"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $aspell_find_program</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> character(0)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -1577,7 +1662,7 @@ string is the name of an object in the environment.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $RtangleWritedoc</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "RweaveLatexOptions" "SweaveParseOptions"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -1592,7 +1677,7 @@ string is the name of an object in the environment.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>
