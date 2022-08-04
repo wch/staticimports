@@ -109,9 +109,9 @@ import_objs <- function(
 
   if ("*" %in% names) {
     explicit_names <- setdiff(names, "*")
-    all_names <- names(env)
-    # Include any names that were explicitly requested alongside *
-    # so the user will get an error if any names could not be found
+    all_names <- ls(env, all.names = TRUE)
+    # Include any names that were explicitly requested alongside "*" so the user
+    # will get an error if any names could not be found.
     all_dep_names <- c(explicit_names, all_names)
   } else {
     dep_table <- find_internal_deps(env)
