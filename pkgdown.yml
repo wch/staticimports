@@ -3,7 +3,7 @@ pkgdown: 2.0.6
 pkgdown_sha: ~
 articles:
   speed_tests: speed_tests.html
-last_built: 2022-08-04T15:25Z
+last_built: 2022-08-04T15:29Z
 urls:
   reference: https://wch.github.io/staticimports/reference
   article: https://wch.github.io/staticimports/articles
