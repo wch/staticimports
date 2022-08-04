@@ -96,6 +96,15 @@ For testing what the output will look like, you can use `import_objs()` to see w
 import_objs(c("map", "walk"), outfile = stdout())
 ```
 
+### Usage notes
+
+You can also use `*` to import all objects from a source:
+
+```
+# @staticimports pkg:staticimports
+#  *
+```
+
 
 ## Under the hood
 
