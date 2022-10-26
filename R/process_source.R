@@ -2,130 +2,75 @@
 # process the text and return a named list of objects.
 process_source_texts <- function(source_texts) {
   results <- lapply(source_texts, process_source_text_one)
-  unlist(unname(results), recursive = FALSE)
+  unlist(results, recursive = FALSE)
 }
 
 # Given a char vector of lines (from readLines()), process the text and return a
 # named list of objects.
 process_source_text_one <- function(text) {
-  # There are three states for this state machine:
-  # - "SCANNING": This means we're looking for comments or object definitions.
-  # - "OBJECT_DEFINITION": We're inside an object definition (usually a
-  #     function).
-  # - "LEADING_COMMENT": We're in a comment that (probably) precedes an object
-  #     definition.
-  chunks <- list()
-  state <- "SCANNING"
-  current_chunk <- vec_accumulator()
-  current_chunk_name <- NULL
+  parse_data <- utils::getParseData(
+    parse(text = paste(text, collapse = "\n"), keep.source = TRUE)
+  )
 
-  for (line in text) {
-    if (state == "SCANNING") {
-      if (grepl("^\\S+ *<-", line)) {
-        # Lines that start with "foo <-" tell us that the object definition
-        # starts here.
-        state <- "OBJECT_DEFINITION"
-        current_chunk$add(line)
-        current_chunk_name <- extract_object_name(line)
+  assignment_ops <- parse_data[
+    parse_data$token %in% c("LEFT_ASSIGN", "EQ_ASSIGN", "RIGHT_ASSIGN"),
+  ]
+  # Assignments are the parent expressions of assignment operators
+  assignments <- parse_data[parse_data$id %in% assignment_ops$parent, ]
+  # Top-level expressions have a parent attribute of 0
+  object_definitions <- assignments[assignments$parent == 0, ]
 
-        # Special case: check if it's a one-liner (one-liners will be parseable;
-        # an opening line for multi-line functions/expressions will not.). If
-        # so, transition to SCANNING state.
-        if (is_parseable(line)) {
-          state <- "SCANNING"
-          chunks[[current_chunk_name]] <- current_chunk$get()
-          current_chunk$reset()
-          current_chunk_name <- NULL
-        }
+  staticexports <- vector("list", nrow(object_definitions))
 
-      } else if (grepl("^#", line)) {
-        state <- "LEADING_COMMENT"
-        current_chunk$add(line)
+  for (i in seq_len(nrow(object_definitions))) {
+    object_definition <- object_definitions[i, ]
+
+    names(staticexports)[i] <- extract_object_name(
+      parse_data, object_definition, assignment_ops
+    )
+
+    # A leading comment's parent attribute is 0 - the next expression's id
+    leading_comments <- parse_data[parse_data$parent == -object_definition$id, ]
+
+    # If there is no whitespace between a leading comment and object definition,
+    # expand the lines of the object definition to include the comment
+    j <- nrow(leading_comments)
+    while (j > 0) {
+      if (object_definition$line1 - leading_comments$line2[j] > 1) {
+        break
       }
 
-    } else if (state == "OBJECT_DEFINITION") {
-      current_chunk$add(line)
-      if (grepl("^\\S", line)) {
-        # If the line starts with anything _other_ than whitespace, then we know
-        # we've reached the end of the object definition.
-        state <- "SCANNING"
-        chunks[[current_chunk_name]] <- current_chunk$get()
-        current_chunk$reset()
-        current_chunk_name <- NULL
-      }
-
-    } else if (state == "LEADING_COMMENT") {
-      if (grepl("^\\S+ *<-", line)) {
-        # Lines that start with "foo <-" tell us that the object definition
-        # starts here.
-        state <- "OBJECT_DEFINITION"
-        current_chunk$add(line)
-        current_chunk_name <- extract_object_name(line)
-
-        # Special case: check if it's a one-liner (one-liners will be parseable;
-        # an opening line for multi-line functions/expressions will not.). If
-        # so, transition to SCANNING state.
-        if (is_parseable(line)) {
-          state <- "SCANNING"
-          chunks[[current_chunk_name]] <- current_chunk$get()
-          current_chunk$reset()
-          current_chunk_name <- NULL
-        }
-
-      } else if (grepl("^#", line)) {
-        # Stay in current state.
-        current_chunk$add(line)
-
-      } else {
-        # We've hit the end of a comment block but no definition here. Just
-        # discard the block and go back to scanning mode.
-        state <- "SCANNING"
-        current_chunk$reset()
-      }
+      object_definition$line1 <- leading_comments$line1[j]
+      j <- j - 1
     }
+
+    staticexport_lines <- seq(object_definition$line1, object_definition$line2)
+    staticexport_text <- text[staticexport_lines]
+    staticexports[[i]] <- staticexport_text
   }
 
-  chunks
+  staticexports
 }
 
+extract_object_name <- function(parse_data, object_definition, assignment_ops) {
+  assignment <- assignment_ops[assignment_ops$parent == object_definition$id, ]
 
-# A wrapper object for vectors, which makes it easy to efficiently append items
-# to it.
-vec_accumulator <- function(init = logical(0)) {
-  s <- init
-  list(
-    add = function(x) {
-      s[length(s) + seq_along(x)] <<- x
-    },
-    get = function() {
-      s
-    },
-    reset = function() {
-      s <<- logical(0)
-    }
-  )
-}
+  object_name_expr <- parse_data[
+    parse_data$parent == object_definition$id &
+      if (assignment$token %in% c("LEFT_ASSIGN", "RIGHT_ASSIGN")) {
+        parse_data$line2 <= assignment$line1 & parse_data$col2 < assignment$col1
+      } else {
+        parse_data$line1 >= assignment$line2 & parse_data$col1 > assignment$col2
+      },
+  ]
 
-
-is_parseable <- function(txt) {
-  parseable <- NULL
-  tryCatch({
-    parse(text = txt)
-    return(TRUE)
-  },
-    error = function(e) {}
-  )
-  return(FALSE)
-}
-
-# Given text like "foo <- function() {", return "foo". Also handles the case
-# where the name is surounded with backticks.
-extract_object_name <- function(txt) {
-  result <- sub("^(\\S+).*", "\\1", txt)
+  result <- utils::getParseText(parse_data, object_name_expr$id)
 
   # Remove backticks, so that strings like "`%||%`" are converted to "%||%"
   if (grepl("^`\\S+`$", result)) {
-    result <- sub("^`(\\S+)`$", "\\1", result)
+    result <- sub("^`(\\S+)`$", "\\1", result, perl = TRUE)
   }
+
   result
 }
+
