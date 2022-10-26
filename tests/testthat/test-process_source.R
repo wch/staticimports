@@ -34,6 +34,8 @@ x <- list(
 
   res <- process_source_texts(lapply(dir(outdir, full.names = TRUE), readLines))
 
+  expect_equal(names(res), c("f", "g", "x", "%infix%"))
+
   expect_identical(
     res,
     list(
