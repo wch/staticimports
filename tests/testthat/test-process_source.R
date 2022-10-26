@@ -21,6 +21,7 @@ g <- local(
 # Comment attached to x
 x <- list(
   # Comment within the definition
+
   1,
   2,
   3
@@ -32,9 +33,24 @@ x <- list(
     file.path(outdir, "file2.R")
   )
 
+  writeLines(
+"# other assigns
+
+# equals assign
+h = function(x, y) {
+  x == y
+}
+
+# right assign
+list(
+  3,
+  2,
+  1
+) -> r", file.path(outdir, "file3.R"))
+
   res <- process_source_texts(lapply(dir(outdir, full.names = TRUE), readLines))
 
-  expect_equal(names(res), c("f", "g", "x", "%infix%"))
+  expect_equal(names(res), c("f", "g", "x", "%infix%", "h", "r"))
 
   expect_identical(
     res,
@@ -55,12 +71,27 @@ x <- list(
         "# Comment attached to x",
         "x <- list(",
         "  # Comment within the definition",
+        "",
         "  1,",
         "  2,",
         "  3",
         ")"
       ),
-      `%infix%` = "`%infix%` <- function(lhs, rhs) lhs"
+      `%infix%` = "`%infix%` <- function(lhs, rhs) lhs",
+      h = c(
+        "# equals assign",
+        "h = function(x, y) {",
+        "  x == y",
+        "}"
+      ),
+      r = c(
+        "# right assign",
+        "list(",
+        "  3,",
+        "  2,",
+        "  1",
+        ") -> r"
+      )
     )
   )
 })

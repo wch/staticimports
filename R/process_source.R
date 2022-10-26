@@ -57,7 +57,7 @@ extract_object_name <- function(parse_data, object_definition, assignment_ops) {
 
   object_name_expr <- parse_data[
     parse_data$parent == object_definition$id &
-      if (assignment$token %in% c("LEFT_ASSIGN", "RIGHT_ASSIGN")) {
+      if (assignment$token %in% c("LEFT_ASSIGN", "EQ_ASSIGN")) {
         parse_data$line2 <= assignment$line1 & parse_data$col2 < assignment$col1
       } else {
         parse_data$line1 >= assignment$line2 & parse_data$col1 > assignment$col2
