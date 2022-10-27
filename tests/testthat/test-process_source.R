@@ -83,18 +83,11 @@ writeLines(
 # equals assign
 h = function(x, y) {
   x == y
-}
-
-# right assign
-list(
-  3,
-  2,
-  1
-) -> r", file.path(outdir, "file3.R"))
+}", file.path(outdir, "file3.R"))
 
   res <- process_source_texts(lapply(dir(outdir, full.names = TRUE), readLines))
 
-  expect_equal(names(res), c("h", "r"))
+  expect_equal(names(res), c("h"))
 
   expect_identical(
     res,
@@ -104,14 +97,6 @@ list(
         "h = function(x, y) {",
         "  x == y",
         "}"
-      ),
-      r = c(
-        "# right assign",
-        "list(",
-        "  3,",
-        "  2,",
-        "  1",
-        ") -> r"
       )
     )
   )

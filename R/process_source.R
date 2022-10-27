@@ -13,7 +13,7 @@ process_source_text_one <- function(text) {
   )
 
   assignment_ops <- parse_data[
-    parse_data$token %in% c("LEFT_ASSIGN", "EQ_ASSIGN", "RIGHT_ASSIGN"),
+    parse_data$token %in% c("LEFT_ASSIGN", "EQ_ASSIGN"),
   ]
   # Assignments are the parent expressions of assignment operators
   assignments <- parse_data[parse_data$id %in% assignment_ops$parent, ]
@@ -55,11 +55,8 @@ extract_object_name <- function(parse_data, object_definition, assignment_ops) {
 
   object_name_expr <- parse_data[
     parse_data$parent == object_definition$id &
-      if (assignment$token %in% c("LEFT_ASSIGN", "EQ_ASSIGN")) {
-        parse_data$line2 <= assignment$line1 & parse_data$col2 < assignment$col1
-      } else {
-        parse_data$line1 >= assignment$line2 & parse_data$col1 > assignment$col2
-      },
+      parse_data$line2 <= assignment$line1 &
+      parse_data$col2 < assignment$col1,
   ]
 
   result <- utils::getParseText(parse_data, object_name_expr$id)
