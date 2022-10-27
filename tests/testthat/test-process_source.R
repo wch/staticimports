@@ -48,7 +48,7 @@ list(
   1
 ) -> r", file.path(outdir, "file3.R"))
 
-  res <- process_source_texts(lapply(dir(outdir, full.names = TRUE), readLines))
+  res <- process_source_files(dir(outdir, full.names = TRUE))
 
   expect_equal(names(res), c("f", "g", "x", "%infix%", "h", "r"))
 

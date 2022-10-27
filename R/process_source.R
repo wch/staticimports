@@ -1,16 +1,13 @@
-# Given a list of char vectors (each should be the output of `readLines()`),
-# process the text and return a named list of objects.
-process_source_texts <- function(source_texts) {
-  results <- lapply(source_texts, process_source_text_one)
+# Given a list of files, process the text and return a named list of objects.
+process_source_files <- function(files) {
+  results <- lapply(files, process_source_file_one)
   unlist(unname(results), recursive = FALSE)
 }
 
-# Given a char vector of lines (from readLines()), process the text and return a
-# named list of objects.
-process_source_text_one <- function(text) {
-  parse_data <- utils::getParseData(
-    parse(text = paste(text, collapse = "\n"), keep.source = TRUE)
-  )
+# Given a file, process the text and return a named list of objects.
+process_source_file_one <- function(file) {
+  parse_data <- utils::getParseData(parse(file = file, keep.source = TRUE))
+  text <- readLines(file)
 
   assignment_ops <- parse_data[
     parse_data$token %in% c("LEFT_ASSIGN", "EQ_ASSIGN", "RIGHT_ASSIGN"),

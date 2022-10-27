@@ -100,10 +100,8 @@ import_objs <- function(
   } else {
     env <- new.env()
     files <- dir(source, pattern = "\\.[r|R]$", full.names = TRUE)
-    source_text <- list() # The contents of each file
     for (file in files) {
       source(file, local = env, keep.source = TRUE)
-      source_text[[file]] <- readLines(file)
     }
   }
 
@@ -122,7 +120,7 @@ import_objs <- function(
 
   all_dep_objs <- mget(all_dep_names, env)
 
-  all_source_text <- process_source_texts(source_text)
+  all_source_text <- process_source_files(files)
 
   # Given a list of functions (with source refs), write the source to a file.
   write_deps <- function(fns, outfile) {
