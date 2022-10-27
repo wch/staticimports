@@ -2,7 +2,7 @@
 # process the text and return a named list of objects.
 process_source_texts <- function(source_texts) {
   results <- lapply(source_texts, process_source_text_one)
-  unlist(results, recursive = FALSE)
+  unlist(unname(results), recursive = FALSE)
 }
 
 # Given a char vector of lines (from readLines()), process the text and return a
