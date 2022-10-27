@@ -20,7 +20,7 @@ process_source_text_one <- function(text) {
   # Top-level expressions have a parent attribute of 0
   object_definitions <- assignments[assignments$parent == 0, ]
 
-  result <- vector("list", nrow(object_definitions))
+  result <- list()
 
   for (i in seq_len(nrow(object_definitions))) {
     object_definition <- object_definitions[i, ]
