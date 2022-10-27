@@ -63,7 +63,7 @@ extract_object_name <- function(parse_data, object_definition, assignment_ops) {
 
   # Remove backticks, so that strings like "`%||%`" are converted to "%||%"
   if (grepl("^`\\S+`$", result)) {
-    result <- sub("^`(\\S+)`$", "\\1", result, perl = TRUE)
+    result <- sub("^`(\\S+)`$", "\\1", result)
   }
 
   result
