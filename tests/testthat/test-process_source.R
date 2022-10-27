@@ -34,7 +34,7 @@ x <- list(
     file.path(outdir, "file2.R")
   )
 
-  res <- process_source_files(dir(outdir, full.names = TRUE))
+  res <- process_source_texts(lapply(dir(outdir, full.names = TRUE), readLines))
 
   expect_equal(names(res), c("f", "g", "x", "%infix%"))
 
@@ -92,7 +92,7 @@ list(
   1
 ) -> r", file.path(outdir, "file3.R"))
 
-  res <- process_source_files(dir(outdir, full.names = TRUE))
+  res <- process_source_texts(lapply(dir(outdir, full.names = TRUE), readLines))
 
   expect_equal(names(res), c("h", "r"))
 
