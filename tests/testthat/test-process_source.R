@@ -19,6 +19,7 @@ g <- local(
 # Comment separated from x
 
 # Comment attached to x
+# And another line
 x <- list(
   # Comment within the definition
 
@@ -54,6 +55,7 @@ x <- list(
       ),
       x = c(
         "# Comment attached to x",
+        "# And another line",
         "x <- list(",
         "  # Comment within the definition",
         "",

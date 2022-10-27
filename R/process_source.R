@@ -29,19 +29,17 @@ process_source_file_one <- function(file) {
     # A leading comment's parent attribute is 0 - the next expression's id
     leading_comments <- parse_data[parse_data$parent == -object_definition$id, ]
 
-    # If there is no whitespace between a leading comment and object definition,
-    # expand the lines of the object definition to include the comment
-    j <- nrow(leading_comments)
-    while (j > 0) {
-      if (object_definition$line1 - leading_comments$line2[j] > 1) {
-        break
-      }
+    # Exclude leading comments if there are any empty lines between the comment
+    # and the object definition
+    leading_comments <- leading_comments[
+      object_definition$line1 - leading_comments$line1 <=
+        rev(seq_len(nrow(leading_comments))),
+    ]
 
-      object_definition$line1 <- leading_comments$line1[j]
-      j <- j - 1
-    }
-
-    staticexport_lines <- seq(object_definition$line1, object_definition$line2)
+    staticexport_lines <- seq(
+      min(leading_comments$line1, object_definition$line1),
+      max(leading_comments$line2, object_definition$line2)
+    )
     staticexport_text <- text[staticexport_lines]
     staticexports[[i]] <- staticexport_text
   }
