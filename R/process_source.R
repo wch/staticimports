@@ -20,12 +20,12 @@ process_source_text_one <- function(text) {
   # Top-level expressions have a parent attribute of 0
   object_definitions <- assignments[assignments$parent == 0, ]
 
-  staticexports <- vector("list", nrow(object_definitions))
+  result <- vector("list", nrow(object_definitions))
 
   for (i in seq_len(nrow(object_definitions))) {
     object_definition <- object_definitions[i, ]
 
-    names(staticexports)[i] <- extract_object_name(
+    names(result)[i] <- extract_object_name(
       parse_data, object_definition, assignment_ops
     )
 
@@ -39,15 +39,14 @@ process_source_text_one <- function(text) {
         rev(seq_len(nrow(leading_comments))),
     ]
 
-    staticexport_lines <- seq(
+    staticexport_lines_idx <- seq(
       min(leading_comments$line1, object_definition$line1),
       max(leading_comments$line2, object_definition$line2)
     )
-    staticexport_text <- text[staticexport_lines]
-    staticexports[[i]] <- staticexport_text
+    result[[i]] <- text[staticexport_lines_idx]
   }
 
-  staticexports
+  result
 }
 
 extract_object_name <- function(parse_data, object_definition, assignment_ops) {
