@@ -33,24 +33,9 @@ x <- list(
     file.path(outdir, "file2.R")
   )
 
-  writeLines(
-"# other assigns
-
-# equals assign
-h = function(x, y) {
-  x == y
-}
-
-# right assign
-list(
-  3,
-  2,
-  1
-) -> r", file.path(outdir, "file3.R"))
-
   res <- process_source_files(dir(outdir, full.names = TRUE))
 
-  expect_equal(names(res), c("f", "g", "x", "%infix%", "h", "r"))
+  expect_equal(names(res), c("f", "g", "x", "%infix%"))
 
   expect_identical(
     res,
@@ -77,7 +62,41 @@ list(
         "  3",
         ")"
       ),
-      `%infix%` = "`%infix%` <- function(lhs, rhs) lhs",
+      `%infix%` = "`%infix%` <- function(lhs, rhs) lhs"
+    )
+  )
+})
+
+test_that("staticexports source parsing with uncommon assignment operators", {
+  # In R < 3.6, parse data does not properly keep track of assignments using `=`
+  skip_if(getRversion() < 3.6)
+
+  outdir <- tempfile("staticimports-test")
+  dir.create(outdir)
+  on.exit(unlink(outdir, recursive = TRUE))
+
+writeLines(
+"# other assigns
+
+# equals assign
+h = function(x, y) {
+  x == y
+}
+
+# right assign
+list(
+  3,
+  2,
+  1
+) -> r", file.path(outdir, "file3.R"))
+
+  res <- process_source_files(dir(outdir, full.names = TRUE))
+
+  expect_equal(names(res), c("h", "r"))
+
+  expect_identical(
+    res,
+    list(
       h = c(
         "# equals assign",
         "h = function(x, y) {",
