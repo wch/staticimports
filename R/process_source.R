@@ -33,14 +33,7 @@ process_source_text_one <- function(text) {
     start_line <- parse_data[parse_data$id == id, "line1"]
     end_line <- parse_data[parse_data$id == id, "line2"]
 
-    # A comment's parent attribute is 0 - the next expression's id
-    comments <- parse_data[parse_data$parent == -id, ]
-    # Include comments if there are no empty lines between the comment
-    # and the object definition
-    leading_comments_idx <- which(
-      start_line - comments$line1 <= rev(seq_len(nrow(comments)))
-    )
-    comment_lines <- comments[leading_comments_idx, "line1"]
+    comment_lines <- find_leading_comment_lines(parse_data, id, start_line)
 
     staticexport_lines_idx <- seq(min(comment_lines, start_line), end_line)
     result[[i]] <- text[staticexport_lines_idx]
@@ -49,6 +42,21 @@ process_source_text_one <- function(text) {
   }
 
   result
+}
+
+find_leading_comment_lines <- function(
+  parse_data, definition_id, definition_start_line
+) {
+  # A comment's parent attribute is 0 - the next expression's id
+  comment_lines <- parse_data[parse_data$parent == -definition_id, "line1"]
+
+  # Include comments if there are no empty lines between the comment
+  # and the object definition
+  leading_comments_idx <- which(
+    definition_start_line - comment_lines <= rev(seq_along(comment_lines))
+  )
+
+  comment_lines[leading_comments_idx]
 }
 
 extract_object_name <- function(parse_data, definition_id, assignment_ops) {
