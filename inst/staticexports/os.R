@@ -1,8 +1,10 @@
 is_windows <- function() .Platform$OS.type == "windows"
 
-is_mac     <- function() Sys.info()[['sysname']] == 'Darwin'
+is_unix <- function() .Platform$OS.type == "unix"
 
-is_linux   <- function() Sys.info()[['sysname']] == 'Linux'
+is_mac <- function() Sys.info()[['sysname']] == 'Darwin'
+
+is_linux <- function() Sys.info()[['sysname']] == 'Linux'
 
 os_name <- function() {
   if (is_windows()) {
