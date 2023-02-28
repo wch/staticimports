@@ -14,5 +14,5 @@ local({
 
 # Load exports objects into specified environment.
 load_exports <- function(env = parent.frame()) {
-  list2env(as.list(exports), envir = env)
+  invisible(list2env(as.list(exports), envir = env))
 }
