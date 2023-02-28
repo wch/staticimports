@@ -44,19 +44,19 @@ rowlist_to_df <- function(x) {
   nrows <- length(x)
   ncols <- length(x[[1]])
   row_idxs <- seq_len(nrows)
-  # col_idxs <- seq_len(ncols)
   colnames <- names(x[[1]])
 
-  df <- list()
+  df_args <- list()
 
   for (colname in colnames) {
     col <- vector(typeof(x[[1]][[colname]]), nrows)
     for (i in row_idxs) {
       col[[i]] <- x[[i]][[colname]]
     }
-    df[[colname]] <- col
+    df_args[[colname]] <- col
   }
 
-  names(df) <- colnames
-  do.call(data.frame, df)
+  names(df_args) <- colnames
+  df_args$stringsAsFactors <- FALSE
+  do.call(data.frame, df_args)
 }

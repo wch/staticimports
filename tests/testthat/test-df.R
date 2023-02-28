@@ -19,7 +19,6 @@ test_that("df_to_rowlist", {
 })
 
 
-
 test_that("rowlist_to_df", {
   load_exports()
 
@@ -34,13 +33,11 @@ test_that("rowlist_to_df", {
     a = y1[[4]]$a,
     b = y1[[4]]$b
   )
-  rowlist_to_df(y1)
   expect_identical(x, rowlist_to_df(y1))
 
   # If a row has a missing key, should error.
   y1 <- y
   y1[[4]]$c <- NULL
   expect_error(rowlist_to_df(y1))
-
 })
 
