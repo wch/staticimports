@@ -101,3 +101,45 @@ h = function(x, y) {
     )
   )
 })
+
+test_that("staticexports source parsing with roxygen comments", {
+  outdir <- tempfile("staticimports-test")
+  dir.create(outdir)
+  on.exit(unlink(outdir, recursive = TRUE))
+
+  writeLines("
+#' @staticexport
+f <- function() 123
+
+#' g function
+#' @export
+#' @importFrom foo bar
+g <- function() 123
+
+#' h function
+#' @params ... Dots
+h <- function(...) 123
+", file.path(outdir, "file1.R"))
+
+res <- process_source_texts(lapply(dir(outdir, full.names = TRUE), readLines))
+
+expect_identical(
+  res,
+  list(
+    f = c(
+      "f <- function() 123"
+    ),
+    g = c(
+      "#' g function",
+      "#' @noRd",
+      "g <- function() 123"
+    ),
+    h = c(
+      "#' h function",
+      "#' @params ... Dots",
+      "#' @noRd",
+      "h <- function(...) 123"
+    )
+  )
+)
+})
