@@ -36,5 +36,7 @@ It only exists to let \verb{@staticexport} tags
 be parsed from \pkg{roxygen2} documentation.
 }
 \examples{
-staticexport_roclet()
+if (require("roxygen2", quietly = TRUE)) {
+  staticexport_roclet()
+}
 }

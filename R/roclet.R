@@ -27,7 +27,9 @@
 #' @return A \pkg{roxygen2} roclet
 #'
 #' @examples
-#' staticexport_roclet()
+#' if (require("roxygen2", quietly = TRUE)) {
+#'   staticexport_roclet()
+#' }
 #' @export
 staticexport_roclet <- function() {
   roxygen2::roclet("staticexport")
