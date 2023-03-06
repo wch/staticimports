@@ -117,7 +117,7 @@ f <- function() 123
 g <- function() 123
 
 #' h function
-#' @params ... Dots
+#' @param ... Dots
 h <- function(...) 123
 ", file.path(outdir, "file1.R"))
 
@@ -136,7 +136,7 @@ expect_identical(
     ),
     h = c(
       "#' h function",
-      "#' @params ... Dots",
+      "#' @param ... Dots",
       "#' @noRd",
       "h <- function(...) 123"
     )
