@@ -7,6 +7,9 @@ is_installed <- function(pkg, version = NULL) {
   if (is.null(version)) {
     return(installed)
   }
+  if (!inherits(version, c("package_version", "numeric_version"))) {
+    version <- numeric_version(version)
+  }
   installed && isTRUE(get_package_version(pkg) >= version)
 }
 
