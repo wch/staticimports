@@ -17,8 +17,8 @@ This finds staticimports declarations, which are comment blocks that look
 like:
 }
 \details{
-\preformatted{# @staticimports pkg:staticimports
+\if{html}{\out{<div class="sourceCode">}}\preformatted{# @staticimports pkg:staticimports
 #   map map_chr map_lgl os_name any_named any_unnamed
 #   all_named all_unnamed
-}
+}\if{html}{\out{</div>}}
 }
