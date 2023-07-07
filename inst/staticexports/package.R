@@ -7,8 +7,10 @@ is_installed <- function(pkg, version = NULL) {
   if (is.null(version)) {
     return(installed)
   }
-  if (!inherits(version, c("package_version", "numeric_version"))) {
-    if (!is.character(version)) {
+  # Most cases, `version` will be a character string.
+  # `is.character` is 10x faster than `inherits`, so perform it first
+  if (!is.character(version)) {
+    if (!inherits(version, c("package_version", "numeric_version"))) {
       warning("`version` must be a character string or a `package_version` or `numeric_version` object.")
       version <- local({
         opts <- options(OutDec = ".")
