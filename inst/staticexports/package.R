@@ -10,9 +10,11 @@ is_installed <- function(pkg, version = NULL) {
   if (!inherits(version, c("package_version", "numeric_version"))) {
     if (!is.character(version)) {
       warning("`version` must be a character string or a `package_version` or `numeric_version` object.")
-      opts <- options(OutDec = ".")
-      on.exit(options(opts))
-      version <- numeric_version(as.character(version))
+      version <- local({
+        opts <- options(OutDec = ".")
+        on.exit(options(opts))
+        version <- numeric_version(as.character(version))
+      })
     }
   }
   installed && isTRUE(get_package_version(pkg) >= version)
