@@ -7,6 +7,7 @@ is_installed <- function(pkg, version = NULL) {
   if (is.null(version)) {
     return(installed)
   }
+  stopifnot(is.character(version))
   installed && isTRUE(get_package_version(pkg) >= version)
 }
 
