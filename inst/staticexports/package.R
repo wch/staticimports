@@ -10,7 +10,9 @@ is_installed <- function(pkg, version = NULL) {
 
   # Require a character `version` argument.
   # https://github.com/rstudio/shiny/issues/3849
-  stopifnot(is.character(version))
+  if (!is.character(version)) {
+    stop("`version` must be a character string.")
+  }
 
   installed && isTRUE(get_package_version(pkg) >= version)
 }
