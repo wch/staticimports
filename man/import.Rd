@@ -16,10 +16,12 @@ project. Use \code{stdout()} to output to console.}
 This function finds staticimports declarations and copies the objects to a
 target file.
 
-staticmports declartions are comment blocks that look like this:\preformatted{# @staticimports pkg:staticimports
+staticmports declartions are comment blocks that look like this:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{# @staticimports pkg:staticimports
 #   map map_chr map_lgl os_name any_named any_unnamed
 #   all_named all_unnamed
-}
+}\if{html}{\out{</div>}}
 
 The \code{pkg:staticimports} means to import objects from the package named
 \strong{staticimports}. If you use \code{pkg:mypackage}, it will import from
@@ -27,10 +29,12 @@ The \code{pkg:staticimports} means to import objects from the package named
 
 On the following lines are the names of the objects to import.
 
-The import declaration can also use a path. For example:\preformatted{# @staticimports ../mystaticexports
+The import declaration can also use a path. For example:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{# @staticimports ../mystaticexports
 #   map map_chr map_lgl os_name any_named any_unnamed
 #   all_named all_unnamed
-}
+}\if{html}{\out{</div>}}
 
 If a relative path is used, it will be relative to the top-leve of this
 project, as determined by \code{\link[here:here]{here::here()}}.
