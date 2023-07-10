@@ -7,13 +7,10 @@ is_installed <- function(pkg, version = NULL) {
   if (is.null(version)) {
     return(installed)
   }
-  if (!inherits(version, c("package_version", "numeric_version"))) {
-    if (!is.character(version)) {
-      warning("`version` must be a character string or a `package_version` or `numeric_version` object.")
-      opts <- options(OutDec = ".")
-      on.exit(options(opts))
-      version <- numeric_version(as.character(version))
-    }
+  if (!is.character(version) && !inherits(version, "numeric_version")) {
+    warning("`version` must be a character string or a `package_version` or `numeric_version` object.")
+    # Avoid https://bugs.r-project.org/show_bug.cgi?id=18548
+    version <- numeric_version(sprintf("%0.9g", version))
   }
   installed && isTRUE(get_package_version(pkg) >= version)
 }
