@@ -6,6 +6,8 @@ is_mac <- function() Sys.info()[["sysname"]] == "Darwin"
 
 is_linux <- function() Sys.info()[["sysname"]] == "Linux"
 
+is_emscripten <- function() Sys.info()[["sysname"]] == "Emscripten"
+
 os_name <- function() {
   if (is_windows()) {
     "win"
@@ -13,6 +15,8 @@ os_name <- function() {
     "mac"
   } else if (is_linux()) {
     "linux"
+  } else if (is_emscripten()) {
+    "emscripten"
   } else if (.Platform$OS.type == "unix") {
     "unix"
   } else {
