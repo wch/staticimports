@@ -36,8 +36,11 @@ process_source_text_one <- function(text) {
     comment_lines <- find_leading_comment_lines(parse_data, id, start_line)
 
     staticexport_lines_idx <- seq(min(comment_lines, start_line), end_line)
-    result[[i]] <- text[staticexport_lines_idx]
 
+    staticexport_text <- text[staticexport_lines_idx]
+    staticexport_text <- sanitize_roxygen_comments(staticexport_text)
+
+    result[[i]] <- staticexport_text
     names(result)[[i]] <- extract_object_name(parse_data, id, assignment_ops)
   }
 
@@ -57,6 +60,31 @@ find_leading_comment_lines <- function(
   )
 
   comment_lines[leading_comments_idx]
+}
+
+sanitize_roxygen_comments <- function(text) {
+  # Remove roxygen comments which would alter documentation or namespace
+  bad_tags <- c(
+    "staticexport",
+    "export", # also covers e.g. `@exportS3Method` and `@exportClass`
+    "import", # also covers e.g. `@importFrom` and `@importClassesFrom`
+    "useDynLib",
+    "evalNamespace",
+    "rawNamespace",
+    "describeIn",
+    "rdname"
+  )
+  bad_regex <- paste0("^#' @(", paste(bad_tags, collapse = "|"), ")")
+
+  text <- text[!grepl(pattern = bad_regex, x = text)]
+
+  # If function has any roxygen comments,
+  # ensure it has a `@noRd` tag so documentation is not built
+  is_roxygen_comment <- grepl("^#'", text)
+  if (!any(is_roxygen_comment) || any(grepl("^#' @noRd", text))) return(text)
+
+  last_roxygen_comment <- max(which(is_roxygen_comment))
+  append(text, "#' @noRd", after = last_roxygen_comment)
 }
 
 extract_object_name <- function(parse_data, definition_id, assignment_ops) {
